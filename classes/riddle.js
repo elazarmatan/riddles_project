@@ -9,7 +9,7 @@ constructor({id,name,taskDescription,correctAnswer}){
 }
 
 ask(){
-    console.log(`id : ${this.id}`)
+    console.log(`name: ${this.name}`)
     console.log(`question : ${this.taskDescription}`)
     let flag = true
     while(flag){

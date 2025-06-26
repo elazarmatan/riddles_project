@@ -6,7 +6,6 @@ import readline from 'readline-sync';
 
 
 export default function game(){
-
     const name = readline.question('whatt your name')
     const p = new Player(name)
     let enter1 = Date.now()
@@ -20,6 +19,12 @@ export default function game(){
     rid2.ask()
     let finish2 = Date.now()
     p.recordTime(enter2,finish2)
+
+    let enter3 = Date.now()
+    const rid3 = new riddle(allriddels.r3)
+    rid3.ask()
+    let finish3 = Date.now()
+    p.recordTime(enter3,finish3)
 
     p.showStats()
 }
