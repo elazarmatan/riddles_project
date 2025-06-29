@@ -5,18 +5,25 @@ import readline from 'readline-sync';
 
 
 
-export default function game(){
+export default function game(player){
     const diffic = readline.question('Choose difficulty: easy / medium / hard: ');
+    if(diffic != "easy" || diffic != "medium" || diffic != "hard"){
+        diffic = readline.question('Choose difficulty: easy / medium / hard: ');
+    }
     const difarr = allriddels.filter(ch =>ch.difficulty === diffic)
-    const name = readline.question('whatt your name')
-    const pl = new Player(name)
+    
    
     for(let i = 0;i < difarr.length;i++){
         
         const rid1 = new riddle(difarr[i])
         let time = rid1.ask() 
-        pl.recordTime(time)      
+        player.recordTime(time)      
     }
-    pl.showStats()
+    player.showStats()
+
+    const continu = readline.question('if you want to continue press v else enter any button: ')
+    if (continu === "v"){
+        game(player)
+    }
 }
 
