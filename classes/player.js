@@ -12,6 +12,6 @@ export default class Player{
         for (const element of this.time) {
             result += element
         }
-        console.log(`all time ${result / 1000} average ${result / this.time.length/ 1000}`)
+        console.log(`all time ${(result / 1000).toFixed(3)} average ${(result / this.time.length/ 1000).toFixed(3)}`)
     }
 }
