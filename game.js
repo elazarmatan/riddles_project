@@ -6,22 +6,23 @@ import readline from 'readline-sync';
 
 
 export default function game(){
+    const diffic = readline.question('Choose difficulty: easy / medium / hard: ');
+    const difarr = allriddels.filter(ch =>ch.difficulty === diffic)
     const name = readline.question('whatt your name')
     const pl = new Player(name)
-    let flag = true
-    let counter = 0
-    while(flag){
-        if (counter === allriddels.length){
-            flag = false
+   
+    for(let i = 0;i < difarr.length;i++){
+        let enter = Date.now()
+        const rid1 = new riddle(difarr[i])
+         rid1.ask()
+        let finish = Date.now()
+        let time = finish - enter 
+        if(time  > difarr[i].timeLimit){
+            time += 5000
+            console.log('Too slow! 5 seconds penalty applied')
         }
-        else{
-        let enter1 = Date.now()
-        const rid1 = new riddle(allriddels[counter])
-        rid1.ask()
-        let finish1 = Date.now()
-        pl.recordTime(enter1,finish1)
-        }
-        counter++
+        
+        pl.recordTime(0,time)      
     }
     pl.showStats()
 }
