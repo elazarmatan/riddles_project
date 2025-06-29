@@ -7,7 +7,7 @@ import readline from 'readline-sync';
 
 export default function game(){
     const name = readline.question('whatt your name')
-    const p = new Player(name)
+    const pl = new Player(name)
     let enter1 = Date.now()
     const rid1 = new riddle(allriddels.r1)
     rid1.ask()
