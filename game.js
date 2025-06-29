@@ -5,15 +5,14 @@ import readline from 'readline-sync';
 
 
 export default function game(player){
-    const diffic = readline.question('Choose difficulty: easy / medium / hard: ');
+    let diffic = readline.question('Choose difficulty: easy / medium / hard: ');
     if(diffic != "easy" || diffic != "medium" || diffic != "hard"){
         diffic = readline.question('Choose difficulty: easy / medium / hard: ');
     }
     const difarr = allriddels.filter(ch =>ch.difficulty === diffic)
     
    
-    for(let i = 0;i < difarr.length;i++){
-        
+    for(let i = 0;i < difarr.length;i++){  
         const rid1 = new riddle(difarr[i])
         let time = rid1.ask() 
         player.recordTime(time)      
