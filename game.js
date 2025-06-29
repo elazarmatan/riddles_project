@@ -12,17 +12,10 @@ export default function game(){
     const pl = new Player(name)
    
     for(let i = 0;i < difarr.length;i++){
-        let enter = Date.now()
-        const rid1 = new riddle(difarr[i])
-         rid1.ask()
-        let finish = Date.now()
-        let time = finish - enter 
-        if(time  > difarr[i].timeLimit){
-            time += 5000
-            console.log('Too slow! 5 seconds penalty applied')
-        }
         
-        pl.recordTime(0,time)      
+        const rid1 = new riddle(difarr[i])
+        let time = rid1.ask() 
+        pl.recordTime(time)      
     }
     pl.showStats()
 }
