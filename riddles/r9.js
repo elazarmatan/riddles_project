@@ -4,7 +4,8 @@ const r9 = {
   taskDescription: "(3 + 5) × (2 + 2)",
   correctAnswer: "32",
   difficulty: "hard",
-  timeLimit: 20000
+  timeLimit: 20000,
+   hint: "Evaluate both parentheses separately first."
 };
 
 export default r9

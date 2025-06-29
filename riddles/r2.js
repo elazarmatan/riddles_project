@@ -4,7 +4,8 @@ const r2 = {
   taskDescription: "10 - 4",
   correctAnswer: "6",
   difficulty: "easy",
-    timeLimit: 5000
+    timeLimit: 5000,
+     hint: "It's less than 7 and more than 5."
 };
 export default r2
 

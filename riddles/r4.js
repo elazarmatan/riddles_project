@@ -4,7 +4,8 @@ const r4 = {
   taskDescription: "12 ÷ 3 + 2",
   correctAnswer: "6",
   difficulty: "medium",
-  timeLimit: 10000
+  timeLimit: 10000,
+  hint: "Divide first, then add."
 };
 
 export default r4
