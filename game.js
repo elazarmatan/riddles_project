@@ -1,5 +1,4 @@
 import allriddels from './riddles/allRiddles.js'
-import Player from './classes/player.js'
 import riddle from './classes/riddle.js'
 import readline from 'readline-sync';
 
