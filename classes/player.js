@@ -3,9 +3,8 @@ export default class Player{
         this.name = name
         this.time = []
     }
-    recordTime(start,end){
-        const ti = end - start
-        this.time.push(ti)
+    recordTime(time){
+        this.time.push(time)
     }
     showStats(){
         let result = 0
