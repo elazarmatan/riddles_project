@@ -8,9 +8,6 @@ import r7 from './r7.js';
 import r8 from './r8.js';
 import r9 from './r9.js';
 import r10 from './r10.js';
-// import r3 from './r3.js';
-// import r3 from './r3.js';
 
-// import riddle from './../classes/riddle.js'
 const riddles = [r1,r2,r3,r4,r5,r6,r7,r8,r9,r10]
 export default riddles;
