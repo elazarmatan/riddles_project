@@ -12,8 +12,13 @@ export default class Riddle {
     this.hint = hint
   }
 
+
+
+// This method displays the riddle and repeatedly asks the player for an answer until it is correct.
+// - If the player types 'v', a hint is shown and 5 seconds are added to their time.
+// - Returns the total hint penalty time in milliseconds.
+
   ask() {
-    
     console.log(`Riddle: ${this.name}`);
     console.log(`${this.taskDescription}`);
     let flag = true;
