@@ -13,7 +13,7 @@ export default class Riddle {
   }
 
   ask() {
-    let enter = Date.now()
+    
     console.log(`Riddle: ${this.name}`);
     console.log(`${this.taskDescription}`);
     let flag = true;
@@ -32,12 +32,8 @@ export default class Riddle {
         console.log('Incorrect. Try again.');
       }
     }
-    let finish = Date.now()
-    let time = finish - enter 
-        if(time  > this.timeLimit){
-            time += 5000
-            console.log('Too slow! 5 seconds penalty applied')
-        }
-    return time += addhin
+    
+    
+    return  addhin
   }
 }
