@@ -6,8 +6,8 @@ import readline from 'readline-sync';
 
 export default function game(player){
     let diffic = readline.question('Choose difficulty: easy / medium / hard: ');
-    if(diffic != "easy" || diffic != "medium" || diffic != "hard"){
-        diffic = readline.question('Choose difficulty: easy / medium / hard: ');
+    if(diffic != "easy" && diffic != "medium" && diffic != "hard"){
+        game()
     }
     const difarr = allriddels.filter(ch =>ch.difficulty === diffic)
     
@@ -21,7 +21,7 @@ export default function game(player){
 
     const continu = readline.question('if you want to continue press v else enter any button: ')
     if (continu === "v"){
-        game(player)
+        game()
     }
 }
 

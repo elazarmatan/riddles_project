@@ -7,10 +7,10 @@ export default class Player{
         this.time.push(time)
     }
     showStats(){
-        let result = 0
+        let allTime = 0
         for (const element of this.time) {
-            result += element
+            allTime += element
         }
-        console.log(`all time ${(result / 1000).toFixed(3)} average ${(result / this.time.length/ 1000).toFixed(3)}`)
+        console.log(`all time ${(allTime / 1000).toFixed(3)} average ${(allTime / this.time.length/ 1000).toFixed(3)}`)
     }
 }
