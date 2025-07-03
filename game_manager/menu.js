@@ -1,13 +1,26 @@
 import readline from 'readline-sync';
-
+import {addPlayer,game} from './game_manager/game.js'
 
 
 export async function menu(){
     console.log('WELCOME TO RIDDLES')
-    const name = readline.question('what your name')
-
+    const player = addPlayer()
+    let flag = true
+    while(flag){
     console.log('menu\n'+
         '1.new game\n'+
-        '2.create new readle\n'+
-        '3.')
+        '2.crud\n'+
+        '3.exit')
+         const choice = readline.question('what your choice')
+         switch(choice){
+            case 1:
+            game(player)
+            break
+            case 2:
+                menuCrud()
+                break
+            case 3:
+                flag = false
+         }
+    }
 }
