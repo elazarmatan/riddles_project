@@ -24,7 +24,7 @@ export function addPlayer() {
 // - Asks if the user wants to continue playing.
 export async function game(player) {
     const difarr = await cr.createLevel()
-    
+
     for (let i = 0; i < difarr.length; i++) {
         const rid1 = new riddle(difarr[i]);
         const enter = Date.now();
@@ -42,8 +42,8 @@ export async function game(player) {
 
     player.showStats();
 
-    const continu = readline.question('If you want to continue, press v. Otherwise, enter any key: ');
-    if (continu === "v") {
-        game(player);
-    }
+    // const continu = readline.question('If you want to continue, press v. Otherwise, enter any key: ');
+    // if (continu === "v") {
+    //     game(player);
+    // }
 }
