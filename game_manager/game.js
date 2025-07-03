@@ -1,4 +1,4 @@
-import allriddels from '../riddles/allRiddles.js'
+import * as cr from './createLevel.js'
 import riddle from '../classes/riddle.js'
 import readline from 'readline-sync';
 import Player from '../classes/player.js'
@@ -13,7 +13,6 @@ export function addPlayer() {
 }
 
 
-
 // Main game function that runs one round of the riddle game.
 // - Asks the user to choose a difficulty level.
 // - Filters riddles by difficulty.
@@ -23,16 +22,9 @@ export function addPlayer() {
 // - After all riddles:
 //     - Shows total and average time
 // - Asks if the user wants to continue playing.
-export function game(player) {
-    let diffic = readline.question('Choose difficulty: easy / medium / hard: ');
-
-    if (diffic !== "easy" && diffic !== "medium" && diffic !== "hard") {
-        game();
-        return;
-    }
-
-    const difarr = allriddels.filter(ch => ch.difficulty === diffic);
-
+export async function game(player) {
+    const difarr = await cr.createLevel()
+    
     for (let i = 0; i < difarr.length; i++) {
         const rid1 = new riddle(difarr[i]);
         const enter = Date.now();
