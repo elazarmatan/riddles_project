@@ -24,6 +24,7 @@ export function addPlayer() {
 // - Asks if the user wants to continue playing.
 export async function game(player) {
     const difarr = await cr.createLevel()
+    
     for (let i = 0; i < difarr.length; i++) {
         const rid1 = new riddle(difarr[i]);
         const enter = Date.now();
