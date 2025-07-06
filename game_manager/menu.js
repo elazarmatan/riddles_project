@@ -1,6 +1,6 @@
 import readline from 'readline-sync';
 import {addPlayer,game} from './game.js'
-
+import { menuCrud } from '../crud/menuCrud.js';
 
 export async function menu(){
     console.log('WELCOME TO RIDDLES')
@@ -9,7 +9,7 @@ export async function menu(){
     while(flag){
     console.log('menu\n'+
         '1.new game\n'+
-        '2.crud\n'+
+        '2.crud riddles\n'+
         '3.exit')
          const choice = readline.question('what your choice')
          switch(choice){
