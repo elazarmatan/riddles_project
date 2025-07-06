@@ -1,4 +1,7 @@
 import readline from 'readline-sync';
+import {create} from '../crud/create.js'
+import {read} from '../crud/read.js'
+
 
 export function createRiddle(lastId) {
     let newRiddle = {id:lastId + 1}
@@ -43,3 +46,4 @@ export function createRiddle(lastId) {
     }
     return newRiddle
 }
+
