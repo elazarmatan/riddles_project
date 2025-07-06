@@ -19,6 +19,7 @@ export default class Riddle {
 // - Returns the total hint penalty time in milliseconds.
 
   ask() {
+    console.log('id',this.id)
     console.log(`Riddle: ${this.name}`);
     console.log(`${this.taskDescription}`);
     let flag = true;
