@@ -1,10 +1,10 @@
 import readline from 'readline-sync';
-import {addPlayer,game} from './game.js'
+import {createEventToPlayer,game} from './game.js'
 import { dalRiddles } from '../DAL/dalRiddles.js';
 
 export async function menu(){
     console.log('WELCOME TO RIDDLES')
-    const player = addPlayer()
+    const player = createEventToPlayer()
     let flag = true
     while(flag){
     console.log('menu\n'+
@@ -17,7 +17,7 @@ export async function menu(){
             await game(player)
             break
             case '2':
-                dalRiddles()
+                await dalRiddles()
                 break
             case '3':
                 flag = false
