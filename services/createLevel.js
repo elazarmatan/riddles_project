@@ -12,7 +12,7 @@ export async function createLevel(){
         return;
     }
 
-    const allriddels = await read('./riddles/riddle.txt')
+    const allriddels = await read('./DAL/riddle.txt')
     const difarr = allriddels.filter(ch => ch.difficulty === diffic).sort(() => Math.random() - 0.5).slice(0, 5);
     return difarr
 }
