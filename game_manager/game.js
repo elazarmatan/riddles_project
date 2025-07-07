@@ -6,7 +6,7 @@ import Player from '../models/player.js'
 
 
 //"This function receives a name and creates a Player instance."
-export function addPlayer() {
+export function createEventToPlayer() {
     const name = readline.question('What is your name: ');
     const pl = new Player(name);
     return pl;
