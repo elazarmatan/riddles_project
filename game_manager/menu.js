@@ -1,6 +1,6 @@
 import readline from 'readline-sync';
 import {addPlayer,game} from './game.js'
-import { menuCrud } from '../crud/menuCrud.js';
+import { dalRiddles } from '../DAL/dalRiddles.js';
 
 export async function menu(){
     console.log('WELCOME TO RIDDLES')
@@ -17,7 +17,7 @@ export async function menu(){
             await game(player)
             break
             case '2':
-                menuCrud()
+                dalRiddles()
                 break
             case '3':
                 flag = false

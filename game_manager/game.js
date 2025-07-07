@@ -1,7 +1,7 @@
 import * as cr from './createLevel.js'
-import riddle from '../classes/riddle.js'
+import riddle from '../models/riddle.js'
 import readline from 'readline-sync';
-import Player from '../classes/player.js'
+import Player from '../models/player.js'
 
 
 
@@ -32,7 +32,7 @@ export async function game(player) {
         const finish = Date.now();
         time += finish - enter;
 
-        if (time > rid1.timeLimit * 1000) {
+        if (time > rid1.timeLimit) {
             time += 5000;
             console.log('Too slow! 5 seconds penalty applied');
         }
@@ -41,9 +41,10 @@ export async function game(player) {
     }
 
     player.showStats();
+    player.ResetArray();
 
-    // const continu = readline.question('If you want to continue, press v. Otherwise, enter any key: ');
-    // if (continu === "v") {
-    //     game(player);
-    // }
+    const continu = readline.question('If you want to continue, press v. Otherwise, enter any key: ');
+    if (continu === "v") {
+        await game(player);
+    }
 }
