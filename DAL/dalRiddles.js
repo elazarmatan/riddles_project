@@ -3,6 +3,7 @@ import {create} from './create.js'
 import {update} from './update.js'
 import {createRiddle} from '../services/createRiddle.js'
 import {updateRiddle} from '../services/updateRiddle.js'
+import {deleteRiddle} from '../services/deleteRiddle.js'
 import {read} from './read.js'
 
 
@@ -18,15 +19,16 @@ export async function dalRiddles() {
         const choice = readline.question('what your choice: ')
         switch (choice) {
             case '1':
-                let dataExistC = await read()
-                create('./riddles/riddle.txt',dataExistC,createRiddle)
+                let dataExistC = await read('./DAL/riddle.txt')
+                create('./DAL/riddle.txt',dataExistC,createRiddle)
                 break;
             case '2':
-                let dataExistU = await read()
-                update('./riddles/riddle.txt',dataExistU,updateRiddle)
+                let dataExistU = await read('./DAL/riddle.txt')
+                update('./DAL/riddle.txt',dataExistU,updateRiddle)
                 break
             case '3':
-                let dataExistD = await read()
+                let dataExistD = await read('./DAL/riddle.txt')
+                update('./DAL/riddle.txt',dataExistD,deleteRiddle)
                 break
             case '4':
                 exit = false
