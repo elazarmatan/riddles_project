@@ -8,13 +8,6 @@ export function create(path, dataExists, dataReceived) {
     const answer = dataReceived(id)
     dataExists.push(answer)
     let finishData = JSON.stringify(dataExists,null,2)
-    writeFile(path, finishData, (err) => {
-        if (err) {
-            console.log(err.message)
-        }
-        else {
-            console.log('done')
-        }
-    })
+    writeFile(path, finishData)
 }
 
