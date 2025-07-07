@@ -1,4 +1,4 @@
-import * as cr from './createLevel.js'
+import * as cr from '../services/createLevel.js'
 import riddle from '../models/riddle.js'
 import readline from 'readline-sync';
 import Player from '../models/player.js'
