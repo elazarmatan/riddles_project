@@ -3,6 +3,7 @@ import {read} from '../crud/read.js'
 
 
 
+
 export async function createLevel(){
     let diffic = readline.question('Choose difficulty: easy / medium / hard: ');
 
