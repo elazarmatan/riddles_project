@@ -2,7 +2,11 @@ import * as cr from '../services/createLevel.js'
 import riddle from '../models/riddle.js'
 import readline from 'readline-sync';
 import Player from '../models/player.js'
-
+import {read} from '../DAL/read.js'
+import {create} from '../DAL/create.js'
+import {checkIfPlayerExist,createPlayer} from '../services/creatPlayer.js'
+import {updateTimeToPlayer} from '../services/updateTimeToPlayer.js'
+import { update } from '../DAL/update.js';
 
 
 //"This function receives a name and creates a Player instance."
@@ -24,11 +28,11 @@ export function createEventToPlayer() {
 // - Asks if the user wants to continue playing.
 export async function game(player) {
     const difarr = await cr.createLevel()
-
+    let time 
     for (let i = 0; i < difarr.length; i++) {
         const rid1 = new riddle(difarr[i]);
         const enter = Date.now();
-        let time = rid1.ask();
+        time = rid1.ask();
         const finish = Date.now();
         time += finish - enter;
 
@@ -39,7 +43,18 @@ export async function game(player) {
 
         player.recordTime(time);
     }
-
+    let players = await read('./DAL/playersDb.txt')
+    const idx = players.findIndex(pl => pl.name === player.name)
+    
+    if(checkIfPlayerExist(players,player.name)){
+        if(players[idx].time > player. getAlltime()){
+            console.log(`Congratulations ${player.name} You broke your own record`)
+            await update('./DAL/playersDb.txt',players,updateTimeToPlayer,player.getAlltime(),idx)
+        }
+    }
+    else{
+        await create('./DAL/playersDb.txt',players,createPlayer,player)
+    }
     player.showStats();
     player.ResetArray();
 
