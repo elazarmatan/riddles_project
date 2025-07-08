@@ -1,8 +1,8 @@
 import readline from 'readline-sync';
 import { createEventToPlayer, game } from './game.js'
 import { dalRiddles } from '../DAL/dalRiddles.js';
-import {showAllPlayers} from '../services/showAllPlayers.js'
-import {read} from '../DAL/read.js'
+import { showAllPlayers } from '../services/showAllPlayers.js'
+import { read } from '../DAL/read.js'
 
 export async function menu() {
     console.log('WELCOME TO RIDDLES')
@@ -22,10 +22,10 @@ export async function menu() {
             case '2':
                 await dalRiddles()
                 break
-                case '3':
-                    let players = await read('./DAL/playersDb.txt')
-                    showAllPlayers(players)
-                    break
+            case '3':
+                let players = await read('./DAL/playersDb.txt')
+                showAllPlayers(players)
+                break
             case '4':
                 flag = false
             default:
