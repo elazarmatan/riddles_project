@@ -1,6 +1,3 @@
+import { menu } from "./game_manager/menu.js";
 
-import {addPlayer,game} from './game_manager/game.js'
-
-
-const player = addPlayer()
-game(player)
+menu()
