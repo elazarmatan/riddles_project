@@ -2,12 +2,12 @@ import { writeFile } from 'node:fs/promises'
 
 
 
-export function create(path, dataExists, dataReceived) {
+export async function create(path, dataExists, dataReceived,player) {
     
     const id = (dataExists[dataExists.length-1]).id
-    const answer = dataReceived(id)
+    const answer = dataReceived(id,player)
     dataExists.push(answer)
     let finishData = JSON.stringify(dataExists,null,2)
-    writeFile(path, finishData)
+    await writeFile(path, finishData)
 }
 
