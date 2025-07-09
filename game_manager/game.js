@@ -43,17 +43,17 @@ export async function game(player) {
 
         player.recordTime(time);
     }
-    let players = await read('./DAL/playersDb.txt')
+    let players = await read('../server/db/playersDb.txt')
     const idx = players.findIndex(pl => pl.name === player.name)
     
     if(checkIfPlayerExist(players,player.name)){
         if(players[idx].time > player. getAlltime()){
             console.log(`\nCongratulations ${player.name} You broke your own record\n`)
-            await update('./DAL/playersDb.txt',players,updateTimeToPlayer,player.getAlltime(),idx)
+            await update('../server/db/playersDb.txt',players,updateTimeToPlayer,player.getAlltime(),idx)
         }
     }
     else{
-        await create('./DAL/playersDb.txt',players,createPlayer,player)
+        await create('../server/db/playersDb.txt',players,createPlayer,player)
     }
     player.showStats();
     player.ResetArray();

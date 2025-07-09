@@ -23,7 +23,7 @@ export async function menu() {
                 await dalRiddles()
                 break
             case '3':
-                let players = await read('./DAL/playersDb.txt')
+                let players = await read('../server/db/playersDb.txt')
                 showAllPlayers(players)
                 break
             case '4':
