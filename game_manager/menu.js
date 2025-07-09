@@ -9,12 +9,12 @@ export async function menu() {
     const player = createEventToPlayer()
     let flag = true
     while (flag) {
-        console.log('menu\n' +
+        console.log('\nmenu\n' +
             '1.new game\n' +
             '2.crud riddles\n' +
             '3.show all players\n' +
-            '4.exit')
-        const choice = readline.question('what your choice')
+            '4.exit\n')
+        const choice = readline.question('what your choice: ')
         switch (choice) {
             case '1':
                 await game(player)
