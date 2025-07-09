@@ -19,16 +19,16 @@ export async function dalRiddles() {
         const choice = readline.question('what your choice: ')
         switch (choice) {
             case '1':
-                let dataExistC = await read('./DAL/riddle.txt')
-                await create('./DAL/riddle.txt',dataExistC,createRiddle)
+                let dataExistC = await read('../server/db/riddle.txt')
+                await create('../server/db/riddle.txt',dataExistC,createRiddle)
                 break;
             case '2':
                 let dataExistU = await read('./DAL/riddle.txt')
-                await update('./DAL/riddle.txt',dataExistU,updateRiddle)
+                await update('../server/db/riddle.txt',dataExistU,updateRiddle)
                 break
             case '3':
                 let dataExistD = await read('./DAL/riddle.txt')
-                await update('./DAL/riddle.txt',dataExistD,deleteRiddle)
+                await update('../server/db/riddle.txt',dataExistD,deleteRiddle)
                 break
             case '4':
                 exit = false
