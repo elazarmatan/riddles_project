@@ -295,5 +295,14 @@
     "difficulty": "hard",
     "timeLimit": 20000,
     "hint": "Double check the math: 9 + 9 is not too simple."
+  },
+  {
+    "id": 41,
+    "name": "math easy",
+    "taskDescription": "17 + 48",
+    "correctAnswer": "65",
+    "hint": "You're so stupid that you ask for a clue for such a riddle.",
+    "timeLimit": 5000,
+    "difficulty": "easy"
   }
 ]
