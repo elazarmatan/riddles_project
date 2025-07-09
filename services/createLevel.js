@@ -9,7 +9,7 @@ export async function createLevel() {
     while (flag) {
         let diffic = readline.question('Choose difficulty: easy / medium / hard: ');
         if (diffic === "easy" || diffic === "medium" || diffic === "hard") {
-            const allriddels = await read('./DAL/riddle.txt')
+            const allriddels = await read('../server/db/riddle.txt')
             const difarr = allriddels.filter(ch => ch.difficulty === diffic).sort(() => Math.random() - 0.5).slice(0, 5);
             return difarr
         }
