@@ -48,7 +48,7 @@ export async function game(player) {
     
     if(checkIfPlayerExist(players,player.name)){
         if(players[idx].time > player. getAlltime()){
-            console.log(`Congratulations ${player.name} You broke your own record`)
+            console.log(`\nCongratulations ${player.name} You broke your own record\n`)
             await update('./DAL/playersDb.txt',players,updateTimeToPlayer,player.getAlltime(),idx)
         }
     }
@@ -58,7 +58,7 @@ export async function game(player) {
     player.showStats();
     player.ResetArray();
 
-    const continu = readline.question('If you want to continue, press v. Otherwise, enter any key: ');
+    const continu = readline.question('\nIf you want to continue, press v. Otherwise, enter any key: ');
     if (continu === "v") {
         await game(player);
     }
