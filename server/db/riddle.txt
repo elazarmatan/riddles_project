@@ -310,7 +310,7 @@
     "taskDescription": "32 / 16",
     "correctAnswer": "2",
     "hint": "lkj",
-    "timeLimit": 5000,
+    "timeLimit": "5000",
     "difficulty": "easy",
     "id": 42
   }

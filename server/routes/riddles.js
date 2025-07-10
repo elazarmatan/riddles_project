@@ -6,10 +6,15 @@ import { update } from '../../DAL/update.js'
 
 const router = express.Router()
 
-router.put('/update:id', async (req, res) => {
+router.put('/update/:id', async (req, res) => {
     const data = await read('../server/db/riddle.txt')
+    const idx = data.findIndex(riddle => riddle.id === parseInt(req.params.id))
+    if (idx === -1) {
+        return res.status(404).send("Riddle not found")
+    }
+
     try {
-        await update('../server/db/riddle.txt', req.body.changes, data,req.params.id,req.body.property)
+        await update('../server/db/riddle.txt', req.body.changes, data, idx, req.body.property)
         res.end('succes')
     } catch (err) {
         console.error(' Error during update:', err)

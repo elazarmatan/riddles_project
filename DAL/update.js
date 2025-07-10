@@ -1,6 +1,5 @@
 import {writeFile} from 'node:fs/promises'
 
-
 export async function update(path,updateData,dataExist,id,property) {
     dataExist[id][property] = updateData     
     try{
