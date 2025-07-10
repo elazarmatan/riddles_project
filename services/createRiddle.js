@@ -3,8 +3,8 @@ import { create } from '../DAL/create.js'
 import { read } from '../DAL/read.js'
 
 
-export async function createRiddle(lastId) {
-    let newRiddle = { id: lastId + 1 }
+export async function createRiddle() {
+    let newRiddle = {}
     const name = readline.question('what name the riddle: ')
     newRiddle.name = name
     const taskDescription = readline.question('what the riddle: ')
@@ -44,7 +44,7 @@ export async function createRiddle(lastId) {
         }
 
     }
-    await fetch('localhost:2030/riddle/create ', {
+    await fetch('http://localhost:2030/riddle/create ', {
         method: 'POST',
         body: JSON.stringify(newRiddle),
         headers: {
