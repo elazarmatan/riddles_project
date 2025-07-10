@@ -1,6 +1,6 @@
 import readline from 'readline-sync';
 import { createEventToPlayer, game } from './game.js'
-import { dalRiddles } from '../../server/DAL/dalRiddles.js';
+import { dalRiddles } from '../services/dalRiddles.js';
 import { showAllPlayers } from '../services/showAllPlayers.js'
 import {getPlayers} from './fetch.js'
 
