@@ -1,12 +1,10 @@
 import {writeFile} from 'node:fs/promises'
 
 
-export async function update(path,dataExists,updateData,playerTime,playername) {
-    
-    const answer = updateData(dataExists,playerTime,playername)
-    let finishData = JSON.stringify(answer, null, 2)
+export async function update(path,updateData,dataExist,id,property) {
+    dataExist[id][property] = updateData     
     try{
-        await writeFile(path, finishData)
+        await writeFile(path, JSON.stringify(dataExist,null,2))
     }catch(err){
         console.error('elazar',err)
     }
