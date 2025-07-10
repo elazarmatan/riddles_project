@@ -26,8 +26,7 @@ export async function dalRiddles() {
                 await updateRiddle()
                 break
             case '3':
-                let dataExistD = await read('./DAL/riddle.txt')
-                await update('../server/db/riddle.txt', dataExistD, deleteRiddle)
+                await deleteRiddle()
                 break
             case '4':
                 exit = false
