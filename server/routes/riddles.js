@@ -2,6 +2,7 @@ import express from 'express'
 import { read } from '../../DAL/read.js'
 import { create } from '../../DAL/create.js'
 import { update } from '../../DAL/update.js'
+import { Delete } from '../../DAL/delete.js'
 
 
 const router = express.Router()
@@ -9,10 +10,6 @@ const router = express.Router()
 router.put('/update/:id', async (req, res) => {
     const data = await read('../server/db/riddle.txt')
     const idx = data.findIndex(riddle => riddle.id === parseInt(req.params.id))
-    if (idx === -1) {
-        return res.status(404).send("Riddle not found")
-    }
-
     try {
         await update('../server/db/riddle.txt', req.body.changes, data, idx, req.body.property)
         res.end('succes')
@@ -38,6 +35,11 @@ router.get('/getall', async (req, res) => {
     const data = await read('../server/db/riddle.txt')
     res.json(data)
 })
-// router.delete('/delete')
+router.delete('/delete/:id',async(req,res) =>{
+    const data = await read('../server/db/riddle.txt')
+    const idx = data.findIndex(riddle => riddle.id === parseInt(req.params.id))
+    await Delete('../server/db/riddle.txt',idx,data)
+    res.end()
+})
 
 export default router
