@@ -1,8 +1,8 @@
 import readline from 'readline-sync';
 
-export function deleteRiddle(arrObj){
+export async function deleteRiddle(){
     const id = readline.question('what the id of riddle do you want to delete: ')
-    const idx = arrObj.findIndex(obj => obj.id === parseInt(id, 10))
-    arrObj.splice(idx,1)
-    return arrObj
+    await fetch(`http://localhost:2030/riddle/delete/${id}`,{
+        method:'DELETE'
+    })
 }
