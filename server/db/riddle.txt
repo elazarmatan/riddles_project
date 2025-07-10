@@ -304,5 +304,14 @@
     "hint": "You're so stupid that you ask for a clue for such a riddle.",
     "timeLimit": 5000,
     "difficulty": "easy"
+  },
+  {
+    "name": "math easy",
+    "taskDescription": "32 / 16",
+    "correctAnswer": "2",
+    "hint": "lkj",
+    "timeLimit": 5000,
+    "difficulty": "easy",
+    "id": 42
   }
 ]
