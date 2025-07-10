@@ -6,7 +6,6 @@ import { read } from '../DAL/read.js'
 
 export async function menu() {
     console.log('WELCOME TO RIDDLES')
-    const player = createEventToPlayer()
     let flag = true
     while (flag) {
         console.log('\nmenu\n' +
@@ -17,13 +16,14 @@ export async function menu() {
         const choice = readline.question('what your choice: ')
         switch (choice) {
             case '1':
+                const player = createEventToPlayer()
                 await game(player)
                 break
             case '2':
                 await dalRiddles()
                 break
             case '3':
-                let players = await read('./DAL/playersDb.txt')
+                let players = await read('../server/db/playersDb.txt')
                 showAllPlayers(players)
                 break
             case '4':

@@ -17,6 +17,21 @@
   {
     "id": 4,
     "name": "elazar",
-    "time": 10332
+    "time": 10197
+  },
+  {
+    "name": "bryan",
+    "time": 9854,
+    "id": 5
+  },
+  {
+    "id": 6,
+    "name": "vinicyus",
+    "time": 10018
+  },
+  {
+    "name": "david",
+    "time": 9422,
+    "id": 7
   }
 ]

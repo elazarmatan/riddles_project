@@ -1,10 +1,10 @@
 import readline from 'readline-sync';
-import {create} from '../DAL/create.js'
-import {read} from '../DAL/read.js'
+import { create } from '../DAL/create.js'
+import { read } from '../DAL/read.js'
 
 
-export function createRiddle(lastId) {
-    let newRiddle = {id:lastId + 1}
+export async function createRiddle() {
+    let newRiddle = {}
     const name = readline.question('what name the riddle: ')
     newRiddle.name = name
     const taskDescription = readline.question('what the riddle: ')
@@ -28,13 +28,13 @@ export function createRiddle(lastId) {
                 break
             case "easy":
                 timeLimit = 5000
-                 newRiddle.timeLimit = timeLimit
+                newRiddle.timeLimit = timeLimit
                 newRiddle.difficulty = difficulty
                 flag = false
                 break
             case "medium":
-                timeLimit =10000
-                 newRiddle.timeLimit = timeLimit
+                timeLimit = 10000
+                newRiddle.timeLimit = timeLimit
                 newRiddle.difficulty = difficulty
                 flag = false
                 break
@@ -44,6 +44,12 @@ export function createRiddle(lastId) {
         }
 
     }
-    return newRiddle
+    await fetch('http://localhost:2030/riddle/create ', {
+        method: 'POST',
+        body: JSON.stringify(newRiddle),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
 }
 
