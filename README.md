@@ -21,12 +21,13 @@
 - **Game Manager**: ניהול המשחק והתפריטים
 - **Models**: מחלקות Player ו-Riddle
 - **Services**: שירותים עסקיים
-- **DAL**: שכבת גישה לנתונים (מקומית)
+
 
 ### 🌐 Server Side
 - **Express Server**: שרת HTTP עם API endpoints
 - **Routes**: ניתוב לחידות ושחקנים
 - **Database**: קבצי JSON לאחסון נתונים
+- - **DAL**: שכבת גישה לנתונים (מקומית)
 
 ## 📁 מבנה הפרויקט
 
