@@ -10,6 +10,4 @@ server.use('/riddle',routerRiddle)
 server.use('/player',routerplayer)
 
 
-
-
 server.listen(PORT,()=>console.log(`server listening on port ${PORT}`))
