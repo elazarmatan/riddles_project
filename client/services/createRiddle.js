@@ -1,6 +1,4 @@
 import readline from 'readline-sync';
-import { create } from '../DAL/create.js'
-import { read } from '../DAL/read.js'
 
 
 export async function createRiddle() {
@@ -44,7 +42,7 @@ export async function createRiddle() {
         }
 
     }
-    await fetch('http://localhost:2030/riddle/create ', {
+    await fetch('https://riddles-project.onrender.com/riddle/create ', {
         method: 'POST',
         body: JSON.stringify(newRiddle),
         headers: {

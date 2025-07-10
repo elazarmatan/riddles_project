@@ -1,5 +1,5 @@
 import readline from 'readline-sync';
-import { read } from '../DAL/read.js'
+import { read } from '../client/DAL/read.js'
 
 
 

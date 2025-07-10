@@ -2,11 +2,8 @@ import * as cr from '../services/createLevel.js'
 import riddle from '../models/riddle.js'
 import readline from 'readline-sync';
 import Player from '../models/player.js'
-import {read} from '../DAL/read.js'
-import {create} from '../DAL/create.js'
 import {checkIfPlayerExist,createPlayer} from '../services/creatPlayer.js'
 import {updateTimeToPlayer} from '../services/updateTimeToPlayer.js'
-import { update } from '../DAL/update.js';
 import {getPlayers,getRiddles} from './fetch.js'
 
 

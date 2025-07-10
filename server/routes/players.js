@@ -1,7 +1,7 @@
 import express from 'express'
-import { read } from '../../DAL/read.js'
-import {create} from '../../DAL/create.js'
-import {update} from '../../DAL/update.js'
+import { read } from '../DAL/read.js'
+import {create} from '../DAL/create.js'
+import {update} from '../DAL/update.js'
 
 
 
