@@ -9,5 +9,6 @@ export async function create(path, dataExists, dataReceived) {
     dataExists.push(answer)
     let finishData = JSON.stringify(dataExists,null,2)
     await writeFile(path, finishData)
+    console.log('cretad successfully!!!!')
 }
 
