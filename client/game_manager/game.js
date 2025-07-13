@@ -2,9 +2,9 @@ import * as cr from '../services/createLevel.js'
 import riddle from '../models/riddle.js'
 import readline from 'readline-sync';
 import Player from '../models/player.js'
-import {checkIfPlayerExist,createPlayer} from '../services/creatPlayer.js'
-import {updateTimeToPlayer} from '../services/updateTimeToPlayer.js'
-import {getPlayers,getRiddles} from './fetch.js'
+import { checkIfPlayerExist, createPlayer } from '../services/creatPlayer.js'
+import { updateTimeToPlayer } from '../services/updateTimeToPlayer.js'
+import { getPlayers, getRiddles } from './fetch.js'
 
 
 //"This function receives a name and creates a Player instance."
@@ -28,7 +28,7 @@ export function createEventToPlayer() {
 export async function game(player) {
     const allRiddles = await getRiddles()
     const difarr = await cr.createLevel(allRiddles)
-    let time 
+    let time
     for (let i = 0; i < difarr.length; i++) {
         const rid1 = new riddle(difarr[i]);
         const enter = Date.now();
@@ -46,18 +46,21 @@ export async function game(player) {
     let players = await getPlayers()
     const idx = players.findIndex(pl => pl.name === player.name)
     const allTime = player.getAlltime()
-    if(checkIfPlayerExist(players,player.name)){
-        if(players[idx].time > allTime){
+    if (checkIfPlayerExist(players, player.name)) {
+        if (players[idx].time > allTime) {
             console.log(`\nCongratulations ${player.name} You broke your own record\n`)
             player.showStats()
-            await updateTimeToPlayer(player,allTime,idx)
+            await updateTimeToPlayer(player, allTime, idx)
+        }
+        else {
+            player.showStats()
         }
     }
-    else{
+    else {
         await createPlayer(player)
         player.showStats()
     }
-    
+
     player.ResetArray();
 
     const continu = readline.question('\nIf you want to continue, press v. Otherwise, enter any key: ');
