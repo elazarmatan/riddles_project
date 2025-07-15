@@ -16,7 +16,8 @@ export async function dalRiddles() {
         const choice = readline.question('what your choice: ')
         switch (choice) {
             case '1':
-                await createRiddle()
+                const rescreate = await createRiddle()
+                console.log(rescreate)
                 break;
             case '2':
                 await updateRiddle()
