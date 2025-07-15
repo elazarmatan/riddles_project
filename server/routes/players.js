@@ -8,15 +8,15 @@ import {update} from '../DAL/update.js'
 const router = express.Router()
 
 router.get('/getall', async (req, res) => {
-    const data = await read('../server/db/playersDb.txt')
-    res.end()
+    const data = await read('../db/playersDb.txt')
+    res.json(data)
 })
 router.post('/create', async (req, res) => {
-    const data = await read('../server/db/playersDb.txt')
+    const data = await read('../db/playersDb.txt')
     const id = (data[data.length-1]).id
     req.body.id = id +1
     try {
-        await create('../server/db/playersDb.txt', data, req.body)
+        await create('../db/playersDb.txt', data, req.body)
         res.end('succes')
     } catch (err) {
         console.error(' Error during creation:', err)
@@ -25,10 +25,10 @@ router.post('/create', async (req, res) => {
     }
 })
 router.put('/update/:id',async(req,res) => {
-    const data = await read('../server/db/playersDb.txt')
+    const data = await read('../db/playersDb.txt')
     try{
-        await update('../server/db/playersDb.txt',req.body.time,data,req.params.id,req.body.property)
-        res.end('succes')
+        await update('../db/playersDb.txt',req.body.time,data,req.params.id,req.body.property)
+        res.json({msg:"succes"})
     }catch(err){
         console.error(' Error during update:', err)
         res.status(400)

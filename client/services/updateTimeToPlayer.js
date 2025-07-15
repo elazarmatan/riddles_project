@@ -1,4 +1,4 @@
-export async function updateTimeToPlayer(player,time,idx){
+export async function updateTimeToPlayer(time,idx){
     await fetch(`https://riddles-project.onrender.com/player/update/${idx}`,{
         method:'PUT',
         headers:{
