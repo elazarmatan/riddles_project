@@ -50,7 +50,7 @@ export async function game(player) {
         if (players[idx].time > allTime) {
             console.log(`\nCongratulations ${player.name} You broke your own record\n`)
             player.showStats()
-            await updateTimeToPlayer(player, allTime, idx)
+            await updateTimeToPlayer(allTime, idx)
         }
         else {
             player.showStats()

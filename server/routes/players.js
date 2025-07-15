@@ -9,7 +9,7 @@ const router = express.Router()
 
 router.get('/getall', async (req, res) => {
     const data = await read('../server/db/playersDb.txt')
-    res.end()
+    res.json(data)
 })
 router.post('/create', async (req, res) => {
     const data = await read('../server/db/playersDb.txt')
