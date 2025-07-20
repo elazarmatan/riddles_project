@@ -2,7 +2,7 @@ export async function createPlayer(showPlayer) {
     let player = {}
     player.name = showPlayer.name
     player.time = showPlayer.getAlltime()
-    await fetch('https://riddles-project.onrender.com/player/create ',{
+    await fetch('http://localHost:2030/player/create ',{
         method: 'POST',
         body: JSON.stringify(player),
         headers: {
