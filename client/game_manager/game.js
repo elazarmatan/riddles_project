@@ -26,9 +26,7 @@ export function createEventToPlayer() {
 //     - Shows total and average time
 // - Asks if the user wants to continue playing.
 export async function game(player) {
-    const allRiddles = await getRiddles()
-    console.log(allRiddles)
-    const difarr = await cr.createLevel(allRiddles)
+    const difarr = await cr.createLevel()
     let time
     for (let i = 0; i < difarr.length; i++) {
         const rid1 = new riddle(difarr[i]);
