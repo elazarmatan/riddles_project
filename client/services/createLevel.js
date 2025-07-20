@@ -9,8 +9,8 @@ export async function createLevel() {
     while (flag) {
         let diffic = readline.question('Choose difficulty: easy / medium / hard: ');
         if (diffic === "easy" || diffic === "medium" || diffic === "hard") {
-            const difarr = fetch(`http://localhost:2030/riddle/getByLevel/${diffic}`)
-            return difarr
+            const difarr = await fetch(`http://localhost:2030/riddle/getByLevel/${diffic}`)
+            return await difarr.json()
         }
     }
 

@@ -1,10 +1,10 @@
-import * as cr from '../services/createLevel.js'
+import {createLevel} from '../services/createLevel.js'
 import riddle from '../models/riddle.js'
 import readline from 'readline-sync';
 import Player from '../models/player.js'
 import { checkIfPlayerExist, createPlayer } from '../services/creatPlayer.js'
 import { updateTimeToPlayer } from '../services/updateTimeToPlayer.js'
-import { getPlayers, getRiddles } from './fetch.js'
+import { getPlayers} from './fetch.js'
 
 
 //"This function receives a name and creates a Player instance."
@@ -26,7 +26,8 @@ export function createEventToPlayer() {
 //     - Shows total and average time
 // - Asks if the user wants to continue playing.
 export async function game(player) {
-    const difarr = await cr.createLevel()
+    const difarr = await createLevel()
+    console.log(difarr)
     let time
     for (let i = 0; i < difarr.length; i++) {
         const rid1 = new riddle(difarr[i]);
