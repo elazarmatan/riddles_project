@@ -1,5 +1,5 @@
 export async function updateTimeToPlayer(time,idx){
-    await fetch(`http://localHost:2030/player/update/${idx}`,{
+    await fetch(`http://localhost:2030/player/update/${idx}`,{
         method:'PUT',
         headers:{
             'Content-Type': 'application/json',
