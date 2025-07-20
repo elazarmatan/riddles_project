@@ -11,3 +11,4 @@ export async function connectToMongoDB() {
         console.log(`Error connecting to MongoDB: ${error.message}`);
     }
 }
+
