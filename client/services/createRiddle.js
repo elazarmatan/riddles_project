@@ -42,12 +42,13 @@ export async function createRiddle() {
         }
 
     }
-    await fetch('https://riddles-project.onrender.com/riddle/create ', {
+    const res = await fetch('https://riddles-project.onrender.com/riddle/create ', {
         method: 'POST',
         body: JSON.stringify(newRiddle),
         headers: {
             "Content-Type": "application/json"
         }
     })
+    return res
 }
 

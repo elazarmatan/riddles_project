@@ -1,7 +1,8 @@
 import readline from 'readline-sync';
-import { createRiddle } from '../services/createRiddle.js'
-import { updateRiddle } from '../services/updateRiddle.js'
-import { deleteRiddle } from '../services/deleteRiddle.js'
+import { createRiddle } from './createRiddle.js'
+import { updateRiddle } from './updateRiddle.js'
+import { deleteRiddle } from './deleteRiddle.js'
+
 
 
 export async function dalRiddles() {

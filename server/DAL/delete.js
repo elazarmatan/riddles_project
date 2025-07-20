@@ -13,4 +13,3 @@ export async function Delete(path, idx, dataExist) {
     }
 }
 
-

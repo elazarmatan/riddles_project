@@ -27,6 +27,7 @@ export function createEventToPlayer() {
 // - Asks if the user wants to continue playing.
 export async function game(player) {
     const allRiddles = await getRiddles()
+    console.log(allRiddles)
     const difarr = await cr.createLevel(allRiddles)
     let time
     for (let i = 0; i < difarr.length; i++) {

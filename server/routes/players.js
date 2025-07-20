@@ -11,7 +11,6 @@ const __dirname = path.dirname(__filename)
 const playersDbPath = path.join(__dirname, '../server/db/playersDb.txt')
 
 
-
 const router = express.Router()
 
 router.get('/getall', async (req, res) => {
