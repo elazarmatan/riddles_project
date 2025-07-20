@@ -1,13 +1,14 @@
 import readline from 'readline-sync';
-import { createRiddle } from '../services/createRiddle.js'
-import { updateRiddle } from '../services/updateRiddle.js'
-import { deleteRiddle } from '../services/deleteRiddle.js'
+import { createRiddle } from './createRiddle.js'
+import { updateRiddle } from './updateRiddle.js'
+import { deleteRiddle } from './deleteRiddle.js'
+
 
 
 export async function dalRiddles() {
     let exit = true
     while (exit) {
-        console.log('menu\n' +
+        console.log('menu riddies\n' +
             '1.create new riddle\n' +
             '2.update riddle exist\n' +
             '3.delete riddle\n' +

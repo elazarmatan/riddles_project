@@ -1,47 +1,66 @@
 import express from 'express'
-import { read } from '../DAL/read.js'
-import { create } from '../DAL/create.js'
-import { update } from '../DAL/update.js'
-import { Delete } from '../DAL/delete.js'
+import { createRiddle ,updateRiddle,deleteRiddle,getAllRiddle,getRiddlesByLevel,getRiddlesById} from '../DAL/dallRiddles.js'
+
+
+const riddlesDbPath = '../server/db/riddle.txt'
 
 const router = express.Router()
-const path = '../server/db/riddle.txt'
+// const path = '../server/db/riddle.txt'
 router.put('/update/:id', async (req, res) => {
-    const data = await read(path)
-    const idx = data.findIndex(riddle => riddle.id === parseInt(req.params.id))
     try {
-        await update(path, req.body.changes, data, idx, req.body.property)
+        await updateRiddle(req.body.property,req.body.changes,req.params.id)
         res.json({ msg: 'succes' })
     } catch (err) {
         console.error(' Error during update:', err)
         res.status(400)
-        res.json({msg:'eror'})
+        res.json({ msg: 'eror' })
     }
 })
 
 router.post('/create', async (req, res) => {
-    const data = await read(path)
-    const id = (data[data.length - 1]).id
-    req.body.id = id + 1
+    const id = await getRiddlesById('687cac7422a52d221c8b84a1')
+    req.body._id = parseInt(id[0].counter)+ 1;
+    await updateRiddle('counter', parseInt(id[0].counter)+ 1,'687cac7422a52d221c8b84a1')
     try {
-        await create(path, data, req.body)
-        res.json({msg:'succes'})
+        await createRiddle(req.body)
+        res.json({ msg: 'succes' })
     } catch (err) {
         res.status(400)
-        res.end("eror")
+        res.json({ msg: 'error' })
     }
 })
 
 router.get('/getall', async (req, res) => {
-    const data = await read(path)
-    res.json(data)
+    try {
+        const data = await getAllRiddle()
+        res.json(data)
+    }
+    catch (err) {
+        res.status(400)
+        res.end(err)
+    }
 })
 
-router.delete('/delete/:id',async(req,res) =>{
-    const data = await read(path)
-    const idx = data.findIndex(riddle => riddle.id === parseInt(req.params.id))
-    await Delete(path,idx,data)
-    res.end()
+router.delete('/delete/:id', async (req, res) => {
+    try {
+       await deleteRiddle(req.params.id)
+        res.json({ msg: 'succes' })
+    }
+    catch (err) {
+        res.status(400)
+        res.end(err)
+    }
+})
+
+router.get('/getByLevel/:level', async (req, res) => {
+    try {
+        const data = await getRiddlesByLevel(req.params.level)
+        res.json(data)
+    }
+    catch (err) {
+        res.status(400)
+        res.end(err)
+    }
 })
 
 export default router

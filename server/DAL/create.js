@@ -2,6 +2,7 @@ import { writeFile } from 'node:fs/promises'
 
 
 
+
 export async function create(path, dataExists, dataReceived) {
     const answer = dataReceived
     dataExists.push(answer)
