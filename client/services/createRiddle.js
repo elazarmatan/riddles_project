@@ -42,7 +42,7 @@ export async function createRiddle() {
         }
 
     }
-    const res = await fetch('http://localHost:2030/riddle/create ', {
+    const res = await fetch('http://localhost:2030/riddle/create ', {
         method: 'POST',
         body: JSON.stringify(newRiddle),
         headers: {
