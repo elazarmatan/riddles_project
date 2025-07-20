@@ -13,5 +13,4 @@ export async function createLevel() {
             return await difarr.json()
         }
     }
-
 }
