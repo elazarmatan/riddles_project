@@ -2,9 +2,8 @@ import {createLevel} from '../services/createLevel.js'
 import riddle from '../models/riddle.js'
 import readline from 'readline-sync';
 import Player from '../models/player.js'
-import { checkIfPlayerExist, createPlayer } from '../services/creatPlayer.js'
+import { checkIfPlayerExist, createPlayer ,getTimeToPlayer} from '../services/creatPlayer.js'
 import { updateTimeToPlayer } from '../services/updateTimeToPlayer.js'
-import { getPlayers} from './fetch.js'
 
 
 //"This function receives a name and creates a Player instance."
@@ -27,7 +26,6 @@ export function createEventToPlayer() {
 // - Asks if the user wants to continue playing.
 export async function game(player) {
     const difarr = await createLevel()
-    console.log(difarr)
     let time
     for (let i = 0; i < difarr.length; i++) {
         const rid1 = new riddle(difarr[i]);
@@ -43,14 +41,14 @@ export async function game(player) {
 
         player.recordTime(time);
     }
-    let players = await getPlayers()
-    const idx = players.findIndex(pl => pl.name === player.name)
     const allTime = player.getAlltime()
-    if (checkIfPlayerExist(players, player.name)) {
-        if (players[idx].time > allTime) {
+    const playerExist = await checkIfPlayerExist(player.name)
+    if (playerExist) {
+        const playerRecord = await getTimeToPlayer(player.name)
+        if (playerRecord > allTime) {
             console.log(`\nCongratulations ${player.name} You broke your own record\n`)
             player.showStats()
-           const update = await updateTimeToPlayer(allTime, idx)
+           const update = await updateTimeToPlayer(allTime,player.name)
            console.log(update)
         }
         else {
@@ -58,7 +56,8 @@ export async function game(player) {
         }
     }
     else {
-        await createPlayer(player)
+        const create = await createPlayer(player.name,allTime)
+        console.log(create)
         player.showStats()
     }
 

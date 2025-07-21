@@ -1,42 +1,40 @@
 import express from 'express'
-import { read } from '../DAL/read.js'
-import {create} from '../DAL/create.js'
-import {update} from '../DAL/update.js'
-import path from 'path'
-import { fileURLToPath } from 'url'
-
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
-
-const playersDbPath = path.join(__dirname, '../server/db/playersDb.txt')
-
+import { getAllPlayers, create, checkIfPlayerExist, update } from '../DAL/dalPlayers.js'
 
 const router = express.Router()
 
 router.get('/getall', async (req, res) => {
-    const data = await read(playersDbPath)
+    const data = await getAllPlayers()
     res.json(data)
 })
 router.post('/create', async (req, res) => {
-    const data = await read(playersDbPath)
-    const id = (data[data.length-1]).id
-    req.body.id = id +1
     try {
-        await create(playersDbPath, data, req.body)
-        res.end('succes')
+        await create(req.body)
+        res.json({ msg: 'succes' })
     } catch (err) {
         console.error(' Error during creation:', err)
         res.status(400)
-        res.end('eror')
+        res.json({ msg: 'Error during creation' })
     }
 })
-router.put('/update/:id',async(req,res) => {
-    const data = await read(playersDbPath)
-    try{
-        await update(playersDbPath,req.body.time,data,req.params.id,req.body.property)
-        res.json({msg:"succes"})
-    }catch(err){
+router.put('/update/:name', async (req, res) => {
+    
+    try {
+        await update(req.params.name, req.body.property, req.body.time)
+        res.json({ msg: "succes" })
+    } catch (err) {
         console.error(' Error during update:', err)
+        res.status(400)
+        res.json({ msg: JSON.stringify(err) })
+    }
+})
+
+router.get('/getByName/:name', async (req, res) => {
+    try {
+        const response = await checkIfPlayerExist(req.params.name)
+        res.json(response)
+    }
+    catch (err) {
         res.status(400)
         res.end('eror')
     }

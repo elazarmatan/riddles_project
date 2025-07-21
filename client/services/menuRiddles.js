@@ -2,6 +2,7 @@ import readline from 'readline-sync';
 import { createRiddle } from './createRiddle.js'
 import { updateRiddle } from './updateRiddle.js'
 import { deleteRiddle } from './deleteRiddle.js'
+import {getRiddles} from '../game_manager/fetch.js'
 
 
 
@@ -12,7 +13,8 @@ export async function dalRiddles() {
             '1.create new riddle\n' +
             '2.update riddle exist\n' +
             '3.delete riddle\n' +
-            '4.exit'
+            '4.read\n'+
+            '5.exit'
         )
         const choice = readline.question('what your choice: ')
         switch (choice) {
@@ -27,6 +29,9 @@ export async function dalRiddles() {
                 await deleteRiddle()
                 break
             case '4':
+                const riddles = await getRiddles()
+                console.log(riddles)
+            case '5':
                 exit = false
             default:
                 break;
