@@ -1,11 +1,11 @@
 import express from 'express'
-import { createRiddle ,updateRiddle,deleteRiddle,getAllRiddle,getRiddlesByLevel,getRiddlesById} from '../DAL/dallRiddles.js'
+import { createRiddle ,updateRiddle,deleteRiddle,getAllRiddle,getRiddlesByLevel,getRiddlesById, updateCounter} from '../DAL/dallRiddles.js'
 
 
-const riddlesDbPath = '../server/db/riddle.txt'
+
 
 const router = express.Router()
-// const path = '../server/db/riddle.txt'
+
 router.put('/update/:id', async (req, res) => {
     try {
         await updateRiddle(req.body.property,req.body.changes,req.params.id)
@@ -19,8 +19,9 @@ router.put('/update/:id', async (req, res) => {
 
 router.post('/create', async (req, res) => {
     const id = await getRiddlesById('687cac7422a52d221c8b84a1')
-    req.body._id = parseInt(id[0].counter)+ 1;
-    await updateRiddle('counter', parseInt(id[0].counter)+ 1,'687cac7422a52d221c8b84a1')
+    const riddleId = parseInt(id[0].counter)+ 1;
+    req.body.riddle_id = riddleId
+    await updateCounter('counter',riddleId,'687cac7422a52d221c8b84a1')
     try {
         await createRiddle(req.body)
         res.json({ msg: 'succes' })
