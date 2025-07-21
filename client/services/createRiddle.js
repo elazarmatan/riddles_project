@@ -49,6 +49,6 @@ export async function createRiddle() {
             "Content-Type": "application/json"
         }
     })
-    return res
+    return res.json()
 }
 
