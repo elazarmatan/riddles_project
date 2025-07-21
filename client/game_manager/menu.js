@@ -1,8 +1,8 @@
 import readline from 'readline-sync';
 import { createEventToPlayer, game } from './game.js'
-import { dalRiddles } from '../services/menuRiddles.js';
+import { menuRiddles } from '../services/menuRiddles.js';
 import { showAllPlayers } from '../services/showAllPlayers.js'
-import {getPlayers} from './fetch.js'
+import { getPlayers } from './fetch.js'
 
 export async function menu() {
     console.log('WELCOME TO RIDDLES')
@@ -17,12 +17,15 @@ export async function menu() {
         switch (choice) {
             case '1':
                 const player = createEventToPlayer()
+                await new Promise(resolve => setTimeout(resolve, 1000))
                 await game(player)
                 break
             case '2':
-                await dalRiddles()
+                await new Promise(resolve => setTimeout(resolve, 1000))
+                await menuRiddles()
                 break
             case '3':
+                await new Promise(resolve => setTimeout(resolve, 1000))
                 let players = await getPlayers()
                 showAllPlayers(players)
                 break

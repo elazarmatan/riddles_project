@@ -1,8 +1,8 @@
-import {createLevel} from '../services/createLevel.js'
+import { createLevel } from '../services/createLevel.js'
 import riddle from '../models/riddle.js'
 import readline from 'readline-sync';
 import Player from '../models/player.js'
-import { checkIfPlayerExist, createPlayer ,getTimeToPlayer} from '../services/creatPlayer.js'
+import { checkIfPlayerExist, createPlayer, getTimeToPlayer } from '../services/creatPlayer.js'
 import { updateTimeToPlayer } from '../services/updateTimeToPlayer.js'
 
 
@@ -42,21 +42,25 @@ export async function game(player) {
         player.recordTime(time);
     }
     const allTime = player.getAlltime()
+    await new Promise(resolve => setTimeout(resolve, 1000))
     const playerExist = await checkIfPlayerExist(player.name)
     if (playerExist) {
+        await new Promise(resolve => setTimeout(resolve, 1000))
         const playerRecord = await getTimeToPlayer(player.name)
         if (playerRecord > allTime) {
             console.log(`\nCongratulations ${player.name} You broke your own record\n`)
             player.showStats()
-           const update = await updateTimeToPlayer(allTime,player.name)
-           console.log(update)
+            await new Promise(resolve => setTimeout(resolve, 1000))
+            const update = await updateTimeToPlayer(allTime, player.name)
+            console.log(update)
         }
         else {
             player.showStats()
         }
     }
     else {
-        const create = await createPlayer(player.name,allTime)
+        await new Promise(resolve => setTimeout(resolve, 1000))
+        const create = await createPlayer(player.name, allTime)
         console.log(create)
         player.showStats()
     }
