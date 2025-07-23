@@ -2,7 +2,7 @@ import readline from 'readline-sync';
 import { createRiddle } from './createRiddle.js'
 import { updateRiddle } from './updateRiddle.js'
 import { deleteRiddle } from './deleteRiddle.js'
-import { getRiddles } from '../game_manager/fetch.js'
+import { getRiddles } from '../../services/servicesRiddles/getAllRiddles.js'
 
 
 
