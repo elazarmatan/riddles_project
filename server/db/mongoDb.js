@@ -1,7 +1,7 @@
 import { MongoClient } from 'mongodb';
 
 
-export const mongoClient = new MongoClient('mongodb+srv://testing:elazar123@cluster0.zimetry.mongodb.net/');
+export const mongoClient = new MongoClient(process.env.MONGODB_URI);
 
 export async function connectToMongoDB() {
     try {

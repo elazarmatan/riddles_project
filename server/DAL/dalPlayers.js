@@ -1,8 +1,10 @@
 import { createClient } from "@supabase/supabase-js"
+import 'dotenv/config'
+
 
 const supabase = createClient(
-   'https://dpimlejpmkovqqtnhajw.supabase.co',
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRwaW1sZWpwbWtvdnFxdG5oYWp3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMwMTE4NTksImV4cCI6MjA2ODU4Nzg1OX0.DuK5jzT5t-JW5hcMp5knfMcKrbC5fqgUlUbDiydF2Ms'
+   process.env.SUPABASE_URL,
+   process.env.SUPABASE_KEY
 )
 
 export async function getAllPlayers(){
@@ -28,4 +30,3 @@ export async function checkIfPlayerExist(playerName){
     if(error) throw new Error(error.message)
     return data 
 }
-
