@@ -21,6 +21,7 @@ export async function login() {
                     console.log('name or password not match try again')
                     break;
                 }
+                console.log(resold.name)
                 await saveToken(resold.token)
                 return resold
             case '2':
@@ -42,8 +43,12 @@ export async function login() {
             case '4':
                 const token = await rescueToken()
                 const checktoken = await checkToken(token)
+                if(checktoken === ''){
+                     console.log('token is not valid')
+                    break
+                }
                 if (checktoken.status === 400) {
-                    console.log('hhh')
+                    console.log('token is not valid')
                     break;
                 }
                 return checktoken
