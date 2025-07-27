@@ -16,13 +16,11 @@ export async function menuRiddlesUser() {
         switch (choice) {
             case '1':
                 await new Promise(resolve => setTimeout(resolve, 1000))
-                const rescreate = await createRiddle()
-                console.log(rescreate)
+                await createRiddle()
                 break;
             case '2':
                 await new Promise(resolve => setTimeout(resolve, 1000))
-                const riddles = await getRiddles()
-                console.log(riddles)
+                await getRiddles()
             case '3':
                 exit = false
             default:
