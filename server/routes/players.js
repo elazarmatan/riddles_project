@@ -4,13 +4,15 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
 
+
 const router = express.Router()
 
 
 
 router.get('/token/:token', async (req, res) => {
     try{
-        const decoded = jwt.verify(req.params.token, process.env.SECRETE_KEY)
+        console
+        const decoded = jwt.verify(req.params.token, process.env.SECRETE_KEY);
         res.json(decoded)
     }
     catch(err){
@@ -27,7 +29,7 @@ router.post('/login', async (req, res) => {
         const passwordMatch = await bcrypt.compare(req.body.password, user[0].password)
         if (!passwordMatch) return res.status(403).json({ msg: 'the password not match' })
         const token = jwt.sign({ role: user[0].role, name: req.body.name }, process.env.SECRETE_KEY, { expiresIn: '7h' })
-        res.json({ token: token, role: user[0].role })
+        res.json({ token: token, role: user[0].role ,name:req.body.name})
     }
     catch (err) {
         res.status(500).json({ msg: `server internal error: ${err}` })
@@ -71,6 +73,7 @@ router.put('/update/:name', async (req, res) => {
 router.get('/getByName/:name', async (req, res) => {
     try {
         const response = await checkIfPlayerExist(req.params.name)
+        console.log(response)
         res.json(response)
     }
     catch (err) {

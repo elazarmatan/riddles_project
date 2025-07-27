@@ -44,6 +44,7 @@ export async function loginPlayer() {
 export async function getTimeToPlayer(name) {
     const time = await fetch(`http://localhost:2030/player/getByName/${name}`)
     const finishTime = await time.json()
+    if(finishTime.length === 0){ console.log('not time'); return; }
     return finishTime[0].time
 }
 

@@ -11,7 +11,7 @@ export async function saveToken(token){
 
 export async function rescueToken(){
     try {
-        const token = await readFile('./token.txt','utf-8')
+        const token = await readFile('./token.txt','utf-8') 
         return token
     } catch (error) {
         console.error(error)
