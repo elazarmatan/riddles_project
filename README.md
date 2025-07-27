@@ -1,17 +1,18 @@
 # 🧩 משחק החידות המתקדם
 
-משחק חידות אינטראקטיבי מבוסס Node.js עם ארכיטקטורה client-server, מערכת ניהול שחקנים, וממשק CRUD מלא לניהול חידות.
+משחק חידות אינטראקטיבי מבוסס Node.js עם ארכיטקטורה client-server, מערכת אימות מתקדמת, ניהול שחקנים, וממשק CRUD מלא לניהול חידות.
 
 ## 🎯 תיאור הפרויקט
 
 פרויקט החידות הוא משחק קונסולה מתקדם הבנוי עם JavaScript/Node.js עם הפרדה בין client ו-server. המשחק כולל:
 
+- **🔐 מערכת אימות מתקדמת** עם JWT tokens ו-bcrypt הצפנה
+- **👥 ניהול משתמשים** עם הרשאות (user/admin) ומערכת התחברות
 - **🧮 חידות מתמטיות** בשלוש רמות קושי (קל, בינוני, קשה)
 - **⏱️ מערכת מדידת זמן** עם עונשים ותגמולים
 - **🏆 מעקב ביצועים** ושיאים אישיים
-- **👥 מערכת שחקנים** עם דירוג ורשומות
-- **⚙️ ממשק CRUD** לניהול חידות
-- **🌐 API RESTful** עבור ניהול נתונים
+- **⚙️ ממשק CRUD** לניהול חידות עם הרשאות דיפרנציאליות
+- **🌐 API RESTful** עבור ניהול נתונים מאובטח
 - **☁️ אחסון בענן** עם MongoDB Atlas ו-Supabase
 
 ## 🏗️ ארכיטקטורה
@@ -19,20 +20,23 @@
 הפרויקט מורכב משלושה חלקים עיקריים:
 
 ### 🖥️ Client Side
+- **Authentication Manager**: ניהול התחברות ו-JWT tokens
 - **Game Manager**: ניהול המשחק והתפריטים
 - **Models**: מחלקות Player ו-Riddle
-- **Services**: שירותים עסקיים
-- **Fetch Services**: תקשורת עם השרת
+- **Services**: שירותים עסקיים עם הרשאות
+- **Token Management**: שמירה וניהול אסימונים מקומית
 
 ### 🌐 Server Side
-- **Express Server**: שרת HTTP עם API endpoints
-- **Routes**: ניתוב לחידות ושחקנים
-- **Controllers**: לוגיקה עסקית
+- **Express Server**: שרת HTTP עם API endpoints מאובטחים
+- **JWT Authentication**: מערכת אימות עם אסימונים
+- **Role-Based Access**: הרשאות משתמש/מנהל
+- **Routes**: ניתוב לחידות ושחקנים עם אבטחה
+- **Password Encryption**: הצפנת סיסמאות עם bcrypt
 - **DAL**: שכבת גישה לנתונים
 
 ### 🗄️ Database Layer
 - **MongoDB Atlas**: אחסון חידות בבסיס נתונים NoSQL
-- **Supabase**: אחסון שחקנים בבסיס נתונים PostgreSQL
+- **Supabase**: אחסון שחקנים וסיסמאות בבסיס נתונים PostgreSQL
 - **Auto-Incrementing IDs**: מערכת מונה אוטומטי לחידות חדשות
 
 ## 📁 מבנה הפרויקט
@@ -42,46 +46,49 @@ riddles_project/
 │
 ├── 📂 client/                    # Client Side
 │   ├── app.js                   # נקודת הכניסה
+│   ├── token.txt               # אחסון JWT Token מקומי
 │   ├── 📂 game_manager/         # ניהול המשחק
-│   │   ├── menu.js             # תפריט ראשי
+│   │   ├── login.js            # מערכת התחברות
+│   │   ├── menu.js             # תפריט ראשי עם הרשאות
 │   │   ├── game.js             # לוגיקת המשחק
-│   │   └── fetch.js            # תקשורת עם השרת
+│   │   ├── checkToken.js       # אימות אסימונים
+│   │   └── saveToken.js        # ניהול אסימונים מקומי
 │   ├── 📂 models/              # מודלים
 │   │   ├── player.js          # מחלקת השחקן
 │   │   └── riddle.js          # מחלקת החידה
 │   └── 📂 services/            # שירותים עסקיים
-│       ├── createLevel.js     # יצירת רמות קושי
-│       ├── createRiddle.js    # יצירת חידות
-│       ├── updateRiddle.js    # עדכון חידות
-│       ├── deleteRiddle.js    # מחיקת חידות
-│       ├── creatPlayer.js     # יצירת שחקנים
-│       ├── updateTimeToPlayer.js  # עדכון זמני שחקנים
-│       ├── showAllPlayers.js  # הצגת שחקנים
-│       └── menuRiddles.js     # תפריט ניהול חידות
+│       ├── 📂 servicesRiddles/  # שירותי חידות
+│       │   ├── createLevel.js  # יצירת רמות קושי
+│       │   ├── createRiddle.js # יצירת חידות
+│       │   ├── updateRiddle.js # עדכון חידות (מנהל)
+│       │   ├── deleteRiddle.js # מחיקת חידות (מנהל)
+│       │   ├── getAllRiddles.js # קבלת כל החידות
+│       │   ├── menuRiddlesAdmin.js # תפריט מנהל
+│       │   └── menuRiddlesUser.js  # תפריט משתמש
+│       └── 📂 servicesPlayers/  # שירותי שחקנים
+│           ├── creatPlayer.js   # יצירת שחקנים והתחברות
+│           ├── updateTimeToPlayer.js # עדכון זמני שחקנים
+│           ├── showAllPlayers.js    # הצגת שחקנים
+│           └── getAllPlayers.js     # קבלת כל השחקנים
 │
 ├── 📂 server/                   # Server Side
-│   ├── server.js               # שרת Express
+│   ├── server.js               # שרת Express עם middleware
+│   ├── .env                    # משתני סביבה (לא נכלל ב-git)
 │   ├── 📂 routes/              # API Routes
 │   │   ├── riddles.js          # ניהול חידות
-│   │   └── players.js          # ניהול שחקנים
-│   ├── 📂 controllers/         # Controllers (ריקים - עתידיים)
+│   │   └── players.js          # ניהול שחקנים ואימות
+│   ├── 📂 controllers/         # Controllers (עתידיים)
 │   ├── 📂 DAL/                 # Data Access Layer
 │   │   ├── dallRiddles.js      # CRUD MongoDB לחידות
-│   │   ├── dalPlayers.js       # CRUD Supabase לשחקנים
-│   │   ├── read.js             # קריאת נתונים (JSON)
-│   │   ├── create.js           # יצירת נתונים (JSON)
-│   │   ├── update.js           # עדכון נתונים (JSON)
-│   │   └── delete.js           # מחיקת נתונים (JSON)
+│   │   └── dalPlayers.js       # CRUD Supabase לשחקנים
 │   └── 📂 db/                  # Database Configuration
-│       ├── mongoDb.js          # חיבור ל-MongoDB
-│       ├── riddle.txt          # חידות (גיבוי JSON)
-│       └── playersDb.txt       # שחקנים (גיבוי JSON)
+│       └── mongoDb.js          # חיבור ל-MongoDB
 ```
 
 ## 🚀 התקנה והרצה
 
 ### דרישות מקדימות
-- Node.js (גרסה 16+)
+- Node.js (גרסה 18+)
 - npm או yarn
 - חיבור לאינטרנט עבור בסיסי הנתונים
 - MongoDB Atlas Account
@@ -94,35 +101,62 @@ git clone <repository-url>
 cd riddles_project
 
 # התקנת תלויות עיקריות
-npm install readline-sync
-npm install express
-npm install mongodb
-npm install @supabase/supabase-js
-npm install dotenv
+npm install readline-sync express mongodb @supabase/supabase-js dotenv bcrypt jsonwebtoken
 ```
 
-### הגדרת בסיסי נתונים
+### הגדרת בסיסי נתונים ואבטחה
+
+#### קובץ .env (server/)
+```env
+# MongoDB Atlas
+MONGODB_URI=your-mongodb-connection-string
+
+# Supabase
+SUPABASE_URL=your-supabase-url
+SUPABASE_KEY=your-supabase-anon-key
+
+# JWT Secret Key (חובה להיות חזק!)
+SECRETE_KEY=your-very-strong-secret-key-min-256-bits
+```
 
 #### MongoDB Atlas
 1. צור חשבון ב-MongoDB Atlas
 2. צור cluster חדש
-3. קבל את connection string
-4. עדכן בקובץ `server/db/mongoDb.js`:
-```javascript
-export const mongoClient = new MongoClient('your-mongodb-connection-string');
+3. צור collection בשם `riddles`
+4. צור document counter עם המבנה:
+```json
+{
+  "_id": "687cac7422a52d221c8b84a1",
+  "counter": 0
+}
 ```
 
 #### Supabase
 1. צור חשבון ב-Supabase
 2. צור פרויקט חדש
-3. צור טבלת `players` עם השדות: `id`, `name`, `time`
-4. עדכן בקובץ `server/DAL/dalPlayers.js`:
-```javascript
-const supabase = createClient(
-    'your-supabase-url',
-    'your-supabase-anon-key'
-)
+3. צור טבלת `players` עם SQL:
+```sql
+CREATE TABLE players (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) UNIQUE NOT NULL,
+    password TEXT NOT NULL,
+    role VARCHAR(50) DEFAULT 'user',
+    time INTEGER
+);
 ```
+
+### 🔐 אבטחה והרשאות
+
+#### יצירת JWT Secret Key חזק
+```bash
+# יצירת מפתח בטוח (Linux/Mac)
+openssl rand -hex 32
+
+# או ב-Node.js
+node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+```
+
+הפרויקט עוקב אחר best practices של JWT 2025 כולל מינימום 256 bits של entropy ויצירת מפתחות cryptographically secure.
 
 ### הרצת הפרויקט
 ```bash
@@ -135,80 +169,100 @@ cd client
 node app.js
 ```
 
+## 🔐 מערכת האימות
+
+### 1. סוגי התחברות
+- **👤 משתמש חדש**: יצירת חשבון עם סיסמה מוצפנת
+- **🔑 התחברות**: אימות עם שם משתמש וסיסמה
+- **🎭 אורח**: משחק ללא שמירת נתונים
+- **🎟️ אסימון**: התחברות עם JWT token שמור
+
+### 2. הרשאות משתמשים
+- **👤 User**: יכול לשחק, ליצור חידות, לראות דירוג
+- **👨‍💼 Admin**: כל הרשאות User + עדכון ומחיקת חידות
+
+### 3. אבטחת סיסמאות
+- **🔒 Bcrypt**: הצפנה עם 12 rounds
+- **🛡️ Hash Storage**: אחסון hash בלבד, לא הסיסמה המקורית
+- **✅ Secure Comparison**: השוואה מאובטחת עם bcrypt.compare
+
+### 4. JWT Token Management
+- **⏰ Expiration**: 7 שעות תוקף
+- **💾 Local Storage**: שמירה מקומית בקובץ token.txt
+- **🔄 Auto-Login**: התחברות אוטומטית עם token שמור
+- **🚪 Logout**: מחיקת token מקומי
+
 ## 🎮 איך לשחק
 
-### 1. התחלת משחק
-- בחר באפשרות "1" מהתפריט הראשי
-- הזן את שמך
+### 1. התחברות למערכת
+- בחר סוג התחברות מהתפריט
+- הזן פרטי התחברות או צור משתמש חדש
+- המערכת תשמור JWT token לשימוש עתידי
+
+### 2. תפריט ראשי
+- **🎮 משחק חדש**: התחל סיבוב חידות
+- **⚙️ ניהול חידות**: יצירה/עדכון/מחיקה (לפי הרשאות)
+- **🏆 דירוג שחקנים**: הצגת top 5
+- **🚪 יציאה**: סיום המשחק
+
+### 3. משחק חידות
 - בחר רמת קושי (easy/medium/hard)
+- פתור 5 חידות אקראיות
+- השתמש ב-'v' לרמז (עונש 5 שניות)
+- זמן מדיד עם עונשים על איחור
 
-### 2. רמות קושי
-- **🟢 Easy**: 5 שניות לחידה
-- **🟡 Medium**: 10 שניות לחידה  
-- **🔴 Hard**: 20 שניות לחידה
-
-### 3. משחק
-- תוצגו 5 חידות אקראיות מהרמה שנבחרה
-- הקלד תשובה או 'v' לרמז (עונש 5 שניות)
-- מדידת זמן מדויקת לכל חידה
-- עונש 5 שניות נוספות על איחור מהזמן המוקצב
-
-### 4. תוצאות
+### 4. תוצאות ושיאים
 - הצגת זמן כולל וממוצע
 - השוואה לשיא האישי
-- עדכון אוטומטי בבסיסי הנתונים
-
-## 🔧 תכונות מתקדמות
-
-### 📊 מערכת הניקוד
-```javascript
-// חישוב זמן סופי
-finalTime = riddleTime + hintPenalty + timeLimitPenalty
-
-// עונש רמז: 5 שניות לכל רמז
-hintPenalty = numberOfHints * 5000
-
-// עונש איחור: 5 שניות נוספות אם עברת את הזמן המוקצב
-timeLimitPenalty = (riddleTime > timeLimit) ? 5000 : 0
-```
-
-### 🏆 מערכת שיאים
-- שמירת השיא האישי הטוב ביותר ב-Supabase
-- דירוג שחקנים (top 5 לפי זמן הנמוך ביותר)
-- מעקב אחר סטטיסטיקות מפורטות
-- עדכון אוטומטי של רשומות חדשות
-
-### ⚙️ ממשק CRUD
-- **Create**: הוספת חידות חדשות עם ID אוטומטי
-- **Read**: קריאת חידות מ-MongoDB לפי רמת קושי
-- **Update**: עדכון חידות קיימות
-- **Delete**: מחיקת חידות
-
-### 🆔 מערכת ID אוטומטית
-- שימוש במונה אוטומטי ב-MongoDB
-- כל חידה חדשה מקבלת `riddle_id` ייחודי
-- אין התנגשויות או כפילויות
+- עדכון אוטומטי בבסיס הנתונים (רק למשתמשים רשומים)
 
 ## 🌐 API Documentation
 
-### Riddles Endpoints (MongoDB)
+### Authentication Endpoints
 ```http
-GET    /riddle/getall           # קבלת כל החידות
-GET    /riddle/getByLevel/:level # קבלת חידות לפי רמת קושי
-POST   /riddle/create           # יצירת חידה חדשה (עם ID אוטומטי)
-PUT    /riddle/update/:id       # עדכון חידה לפי riddle_id
-DELETE /riddle/delete/:id       # מחיקת חידה לפי riddle_id
+POST   /player/login              # התחברות עם סיסמה
+POST   /player/create             # יצירת משתמש חדש
+GET    /player/token/:token       # אימות JWT token
 ```
 
-### Players Endpoints (Supabase)
+### Players Endpoints (מאובטח)
 ```http
-GET  /player/getall            # קבלת כל השחקנים
-GET  /player/getByName/:name   # בדיקה אם שחקן קיים + קבלת הזמן שלו
-POST /player/create            # יצירת שחקן חדש
-PUT  /player/update/:name      # עדכון זמן שחקן קיים
+GET    /player/getall             # קבלת כל השחקנים
+GET    /player/getByName/:name    # בדיקה אם שחקן קיים
+PUT    /player/update/:name       # עדכון זמן שחקן
+```
+
+### Riddles Endpoints (הרשאות דיפרנציאליות)
+```http
+GET    /riddle/getall             # קבלת כל החידות (כולם)
+GET    /riddle/getByLevel/:level  # קבלת חידות לפי רמה (כולם)
+POST   /riddle/create             # יצירת חידה (user+admin)
+PUT    /riddle/update/:id         # עדכון חידה (admin בלבד)
+DELETE /riddle/delete/:id         # מחיקת חידה (admin בלבד)
 ```
 
 ## 📋 מבני נתונים
+
+### 🔐 מבנה משתמש (Supabase)
+```json
+{
+  "id": 1,
+  "name": "יוסף",
+  "password": "$2b$12$hashedPassword...",
+  "role": "user",
+  "time": 10046
+}
+```
+
+### 🎟️ מבנה JWT Token
+```json
+{
+  "role": "user",
+  "name": "יוסף",
+  "iat": 1753604228,
+  "exp": 1753629428
+}
+```
 
 ### 🧩 מבנה חידה (MongoDB)
 ```json
@@ -224,208 +278,214 @@ PUT  /player/update/:name      # עדכון זמן שחקן קיים
 }
 ```
 
-### 👤 מבנה שחקן (Supabase)
-```json
-{
-  "id": 1,
-  "name": "יוסף",
-  "time": 10046
-}
-```
-
-### 🔢 מבנה מונה (MongoDB)
-```json
-{
-  "_id": "687cac7422a52d221c8b84a1",
-  "counter": 42
-}
-```
-
-## 🎯 מחלקות עיקריות
-
-### 🏃 מחלקת Player
-```javascript
-class Player {
-    constructor(name)          // יוצר שחקן חדש
-    recordTime(time)           // רושם זמן חידה
-    showStats()               // מציג סטטיסטיקות
-    getAlltime()              // מחזיר זמן כולל
-    ResetArray()              // מאפס מערך זמנים
-}
-```
-
-### 🧩 מחלקת Riddle
-```javascript
-class Riddle {
-    constructor(riddleData)    // יוצר חידה
-    ask()                     // מציג חידה ומקבל תשובה + רמזים
-}
-```
-
-## 🔄 זרימת המשחק
+## 🔄 זרימת האימות
 
 ```mermaid
 flowchart TD
-    A[🎮 התחלת משחק] --> B[👤 יצירת שחקן]
-    B --> C[📋 תפריט ראשי]
-    C --> D{🎯 בחירת אפשרות}
+    A[🚀 התחלת אפליקציה] --> B{🎟️ קיים token מקומי?}
     
-    D -->|1| E[🆕 משחק חדש]
-    D -->|2| F[⚙️ ניהול חידות]
-    D -->|3| G[🏆 דירוג שחקנים]
-    D -->|4| H[🚪 יציאה]
+    B -->|כן| C[🔍 אימות token בשרת]
+    B -->|לא| D[📋 תפריט התחברות]
     
-    E --> I[🎚️ בחירת קושי]
-    I --> J[☁️ קבלת חידות מהשרת]
-    J --> K[🎲 5 חידות אקראיות]
-    K --> L[⏱️ מדידת זמן]
-    L --> M[❓ הצגת חידה]
-    M --> N{💡 רמז או תשובה?}
+    C --> E{✅ token תקף?}
+    E -->|כן| F[🎮 כניסה למשחק]
+    E -->|לא| D
     
-    N -->|רמז v| O[📝 רמז + 5 שניות]
-    N -->|תשובה| P[✍️ קבלת תשובה]
-    O --> P
+    D --> G{🔐 סוג התחברות}
     
-    P --> Q{✅ נכון?}
-    Q -->|לא| M
-    Q -->|כן| R[📊 רישום זמן]
+    G -->|התחברות| H[👤 שם + סיסמה]
+    G -->|משתמש חדש| I[📝 יצירת חשבון]
+    G -->|אורח| J[🎭 משחק אורח]
     
-    R --> S{🔄 עוד חידות?}
-    S -->|כן| L
-    S -->|לא| T[🧮 חישוב תוצאות]
+    H --> K[🔒 bcrypt compare]
+    I --> L[🔐 bcrypt hash + שמירה]
     
-    T --> U{👤 שחקן קיים?}
-    U -->|כן| V{🏆 שיא חדש?}
-    U -->|לא| W[💾 יצירת שחקן חדש ב-Supabase]
+    K --> M{✅ סיסמה נכונה?}
+    M -->|כן| N[🎟️ יצירת JWT]
+    M -->|לא| O[❌ שגיאת התחברות]
     
-    V -->|כן| X[🔄 עדכון שיא ב-Supabase]
-    V -->|לא| Y[📈 הצגת תוצאות]
-    W --> Y
-    X --> Y
+    L --> N
+    N --> P[💾 שמירת token מקומי]
+    P --> F
     
-    Y --> Z{🔄 המשך?}
-    Z -->|כן| I
-    Z -->|לא| C
+    O --> D
+    J --> Q[🎮 משחק ללא שמירה]
 ```
 
-## 📊 מדדי ביצועים
+## 🛡️ תכונות אבטחה
 
-### ⏱️ מדידת זמן
-- **דיוק**: מילישנייה
-- **רמזים**: עונש 5 שניות לכל רמז
-- **איחור**: עונש 5 שניות נוספות אם עברת את הזמן המוקצב
+### 🔐 הצפנת סיסמאות
+- **Bcrypt**: אלגוריתם hashing מתקדם
+- **Salt Rounds**: 12 rounds (מאוד בטוח)
+- **No Plain Text**: אף פעם לא שומרים סיסמאות גלויות
 
-### 🏆 מערכת דירוג
-- מיון לפי זמן כולל (נמוך יותר = טוב יותר)
-- הצגת top 5 שחקנים
-- עדכון אוטומטי של שיאים ב-Supabase
-- בדיקת שחקנים קיימים לפני יצירה
+### 🎟️ JWT Security
+- **Strong Secret**: מפתח 256-bit מינימום
+- **Short Expiration**: 7 שעות תוקף מקסימום
+- **Secure Storage**: שמירה מקומית בקובץ מוגן
+- **Token Validation**: אימות בכל בקשה רגישה
 
-## 🛠️ טכנולוgiות בשימוש
+### 🚨 Error Handling
+- **No Information Leakage**: הודעות שגיאה כלליות
+- **Rate Limiting Ready**: מוכן לשילוב rate limiting
+- **Input Validation**: בדיקת קלטים במספר שכבות
+
+## 🎯 רמות הרשאות
+
+### 👤 User Permissions
+```javascript
+// מה שמשתמש רגיל יכול לעשות:
+- ✅ לשחק משחקים
+- ✅ לראות דירוג
+- ✅ ליצור חידות חדשות
+- ✅ לראות כל החידות
+- ❌ לערוך חידות קיימות
+- ❌ למחוק חידות
+```
+
+### 👨‍💼 Admin Permissions
+```javascript
+// מה שמנהל יכול לעשות:
+- ✅ כל הרשאות User
+- ✅ לערוך חידות קיימות
+- ✅ למחוק חידות
+- ✅ ניהול מלא של המערכת
+```
+
+## 🔧 שיפורים חדשים
+
+### 🆕 תכונות שנוספו
+- [x] **מערכת אימות מלאה** עם JWT ו-bcrypt
+- [x] **ניהול הרשאות** user/admin roles
+- [x] **Token management** עם שמירה מקומית
+- [x] **התחברות אוטומטית** עם token שמור
+- [x] **הצפנת סיסמאות** עם bcrypt
+- [x] **הרשאות דיפרנציאליות** בממשק CRUD
+- [x] **משחק אורח** ללא צורך ברישום
+- [x] **מערכת login/logout** מתקדמת
+
+### 🛠️ שיפורים טכניים שנוספו
+- [x] **Environment Variables** עם dotenv
+- [x] **Password Hashing** עם bcrypt (12 rounds)
+- [x] **JWT Authentication** עם expiration
+- [x] **Role-Based Access Control** במסלולי API
+- [x] **Error Handling** משופר עם status codes
+- [x] **Token Validation** בצד הקליינט והשרת
+- [x] **Secure File Storage** לאסימונים מקומיים
+
+## 🛠️ טכנולוגיות בשימוש
 
 ### Backend
-- **Node.js + Express**: שרת REST API
+- **Node.js + Express**: שרת REST API מאובטח
+- **JWT (jsonwebtoken)**: אימות ואסימונים
+- **bcrypt**: הצפנת סיסמאות
 - **MongoDB Atlas**: בסיס נתונים לחידות
 - **Supabase (PostgreSQL)**: בסיס נתונים לשחקנים
-- **ES6 Modules**: import/export syntax
+- **dotenv**: ניהול משתני סביבה
 
-### Frontend (Console)
-- **readline-sync**: אינטראקציה עם המשתמש
-- **fetch API**: תקשורת עם השרת
-- **OOP JavaScript**: מחלקות Player ו-Riddle
-
-### Deployment Ready
-- **Cloud Databases**: MongoDB Atlas + Supabase
-- **Environment Variables**: הגדרות חיבור
-- **Error Handling**: טיפול בשגיאות שרת וקליינט
+### Security & Authentication
+- **JWT Tokens**: אסימוני גישה מאובטחים
+- **bcrypt Hashing**: הצפנת סיסמאות חזקה
+- **Role-Based Access**: הרשאות דיפרנציאליות
+- **Environment Variables**: הגנה על מפתחות רגישים
 
 ## 🔧 הרחבות עתידיות
 
 ### 🎨 תכונות מתוכננות
-- [ ] ממשק גרафי (Web UI)
-- [ ] סוגי חידות נוספים (לוגיקה, מילים, חשבון מתקדם)
-- [ ] מצב multiplayer בזמן אמת
-- [ ] מערכת הישגים ותגיות
-- [ ] אימות משתמשים ו-JWT
-- [ ] אפליקציה מובילית (React Native)
-- [ ] בוט טלגרם למשחק
+- [ ] **Refresh Tokens**: מערכת refresh tokens לאבטחה משופרת
+- [ ] **Email Verification**: אימות מייל לחשבונות חדשים
+- [ ] **Password Reset**: איפוס סיסמה עם מייל
+- [ ] **Multi-Factor Authentication**: אימות דו-שלבי
+- [ ] **Admin Dashboard**: ממשק ניהול מתקדם
+- [ ] **User Profiles**: פרופילי משתמשים מורחבים
+- [ ] **Game History**: היסטוריית משחקים מלאה
+- [ ] **Social Features**: חברים והזמנות
 
-### 🛠️ שיפורים טכניים
-- [ ] Unit Testing (Jest)
-- [ ] Error Handling מתקדם
-- [ ] Logging System (Winston)
-- [ ] Configuration Management (.env)
-- [ ] Docker Support
-- [ ] CI/CD Pipeline
-- [ ] Rate Limiting
-- [ ] Data Validation (Joi/Zod)
+### 🛡️ שיפורי אבטחה מתוכננים
+- [ ] **Rate Limiting**: הגבלת קצב בקשות
+- [ ] **Account Lockout**: נעילת חשבון אחרי נסיונות כושלים
+- [ ] **Session Management**: ניהול session מתקדם
+- [ ] **Audit Logging**: רישום פעולות משתמשים
+- [ ] **CORS Configuration**: הגדרות CORS מתקדמות
+- [ ] **Input Sanitization**: ניקוי קלטים מתקדם
+- [ ] **SQL Injection Protection**: הגנה מפני הזרקת SQL
 
-## 🤝 תרומה לפרויקט
+## 🧪 Testing & Security
 
-נשמח לקבל:
-- 🐛 דיווחי באגים
-- 💡 הצעות לתכונות חדשות
-- 🧩 חידות חדשות ומעניינות
-- 🔧 שיפורי קוד
-- 📖 שיפורי תיעוד
-- 🎨 עיצוב UI/UX
-
-### Development Guidelines
+### 🔒 בדיקות אבטחה
 ```bash
-# Fork הפרויקט
-git fork <repository-url>
+# בדיקת חוזק JWT secret
+node -e "console.log(process.env.SECRETE_KEY?.length >= 32 ? '✅ Strong' : '❌ Weak')"
 
-# יצירת branch חדש
-git checkout -b feature/new-feature
+# בדיקת חיבור מאובטח לבסיסי נתונים
+cd server && npm test
 
-# Commit + Push
-git commit -m "Add new feature"
-git push origin feature/new-feature
-
-# יצירת Pull Request
+# בדיקת אימות endpoints
+curl -X POST http://localhost:2030/player/login \
+  -H "Content-Type: application/json" \
+  -d '{"name":"test","password":"test"}'
 ```
 
-## 🧪 Testing
-
+### 🧪 Unit Tests (מתוכנן)
 ```bash
-# הרצת טסטים (עתידי)
-npm test
+# טסטים לאימות
+npm test auth
 
-# בדיקת חיבור לבסיסי נתונים
-cd server && node server.js
-# אמור להציג: "Connected to MongoDB" + "server listening on port 2030"
+# טסטים לחידות
+npm test riddles
+
+# טסטים לשחקנים
+npm test players
 ```
+
+## 🚨 אבטחה ושמירה על פרטיות
+
+### ⚠️ חשוב לזכור:
+1. **לעולם אל תשתף את קובץ .env**
+2. **השתמש במפתח JWT חזק (256+ bits)**
+3. **שנה סיסמאות ברגישות**
+4. **עקוב אחר לוגי השגיאות**
+5. **עדכן dependencies בקביעות**
+
+### 🔐 המלצות אבטחה נוספות:
+- אל תשמור אסימונים יותר מהנדרש ואל תאחסן מידע רגיש ב-browser storage
+- השתמש ב-HTTPS בפרודקשן
+- הגדר CORS נכון
+- הגבל גישה לבסיסי נתונים
+- עקוב אחר best practices של JWT
 
 ## 📞 תמיכה וקשר
 
+### לבעיות אבטחה:
+- דווח על בעיות אבטחה בפרטיות
+- השתמש בתיבת issue עם תג [SECURITY]
+- ציין פרטי הגירסה ומערכת ההפעלה
+
 ### לבעיות טכניות:
 - פתח **Issue** בגיטהאב
-- צרף screenshots של שגיאות
-- ציין את גרסת Node.js
+- צרף לוגי שגיאות (ללא פרטים רגישים!)
+- ציין את גרסת Node.js וחבילות
 
-### לשאלות כלליות:
-- צור **Discussion** בגיטהאב
-- שלח מייל למפתחים
-- קרא את התיעוד המלא
+## 📄 רישיון ואבטחה
 
-## 📄 רישיון
+הפרויקט זמין תחת רישיון **MIT** עם הסתייגויות אבטחה:
 
-הפרויקט זמין תחת רישיון **MIT** - ראה קובץ `LICENSE` לפרטים נוספים.
-
-## 🏷️ Tags
-
-`nodejs` `express` `mongodb` `supabase` `javascript` `console-game` `riddles` `education` `backend` `api` `crud` `database`
+⚠️ **אחריות המפתח**: השימוש בקוד הוא באחריותך הבלעדית  
+🔒 **אבטחה**: המפתחים אינם אחראיים לפרצות אבטחה בשימוש לא נכון  
+📋 **Compliance**: ודא עמידה בתקנות הגנת הפרטיות המקומיות
 
 ---
 
 <div align="center">
 
-**🎯 נוצר עם ❤️ עבור חובבי חידות ומתכנתים** 
+**🎯 נוצר עם ❤️ ו-🔒 עבור חובבי חידות ומתכנתים בטוחים** 
 
-*משחק, למד, ותשתפר! 🚀*
+*שחק, למד, והישאר מוגן! 🚀*
 
 ![Made with Node.js](https://img.shields.io/badge/Made%20with-Node.js-green)
 ![Database](https://img.shields.io/badge/Database-MongoDB%20%2B%20Supabase-blue)
+![Auth](https://img.shields.io/badge/Auth-JWT%20%2B%20bcrypt-red)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
+![Security](https://img.shields.io/badge/Security-2025%20Best%20Practices-orange)
 
 </div>
