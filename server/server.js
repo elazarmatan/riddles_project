@@ -2,6 +2,7 @@ import express from 'express'
 import routerRiddle from './routes/riddles.js'
 import routerplayer from './routes/players.js'
 import { connectToMongoDB } from './db/mongoDb.js'
+import 'dotenv/config'
 
 const server = express()
 
