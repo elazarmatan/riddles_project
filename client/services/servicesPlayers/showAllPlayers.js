@@ -1,5 +1,6 @@
 export function showAllPlayers(players) {
-    const allPlayers = players.sort((a, b) => a.time - b.time)
+    const playersTimes = players.filter(a => a.time !== null)
+    const allPlayers = playersTimes.sort((a, b) => a.time - b.time)
     console.log('-----------------------')
     allPlayers.forEach((a, i) => {
         if (i < 5) {
