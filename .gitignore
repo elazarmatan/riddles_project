@@ -1,6 +1,6 @@
 # Node modules
 node_modules/
-token.txt/
+token.txt
 
 # Logs
 logs/
