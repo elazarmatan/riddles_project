@@ -4,6 +4,7 @@ import { createRiddle ,updateRiddle,deleteRiddle,getAllRiddle,getRiddlesByLevel,
 
 
 
+
 const router = express.Router()
 
 router.put('/update/:id', async (req, res) => {
