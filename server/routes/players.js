@@ -25,10 +25,10 @@ router.post('/login', async (req, res) => {
     try {
         if (!req.body.password) return res.status(403).json({ msg: 'do you not have password' })
         const user = await checkIfPlayerExist(req.body.name)
-        if (!user) return res.status(403).json({ msg: 'User not exist' })
+        if (user.length === 0) return res.status(403).json({ msg: 'User not exist' })
         const passwordMatch = await bcrypt.compare(req.body.password, user[0].password)
         if (!passwordMatch) return res.status(403).json({ msg: 'the password not match' })
-        const token = jwt.sign({ role: user[0].role, name: req.body.name }, process.env.SECRETE_KEY, { expiresIn: '7h' })
+        const token = jwt.sign({ role: user[0].role, name: req.body.name }, process.env.SECRETE_KEY, { expiresIn: '7m' })
         res.json({ token: token, role: user[0].role ,name:req.body.name})
     }
     catch (err) {

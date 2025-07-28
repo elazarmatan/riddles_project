@@ -7,7 +7,7 @@ export async function updateTimeToPlayer(time,name){
         body: JSON.stringify({"time":time,"property":"time"})
     })
     if (!res.ok) {
-        const errorText = await res.text(); // נסה לקרוא טקסט במקום JSON
+        const errorText = await res.text(); 
         throw new Error(`Server error: ${res.status} - ${errorText}`);
     }
     return await res.json()

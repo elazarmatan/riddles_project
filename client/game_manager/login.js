@@ -16,12 +16,13 @@ export async function login() {
         const login = readline.question('How do you want to enter?: ')
         switch (login) {
             case '1':
+                await new Promise(resolve => setTimeout(resolve, 1000))
                 const resold = await loginPlayer()
                 if (resold === 'err') {
                     console.log('name or password not match try again')
                     break;
                 }
-                console.log(resold.name)
+                await new Promise(resolve => setTimeout(resolve, 1000))
                 await saveToken(resold.token)
                 return resold
             case '2':
@@ -32,16 +33,20 @@ export async function login() {
                     break;
                 }
                 else {
+                await new Promise(resolve => setTimeout(resolve, 1000))
                     await saveToken(newPlayer.token)
                     return newPlayer
                 }
             case '3':
                 const name = readline.question('What is your name: ');
                 const status = 'guest'
+                await new Promise(resolve => setTimeout(resolve, 1000))
                 await game(name, status)
                 flag = false
             case '4':
+                await new Promise(resolve => setTimeout(resolve, 1000))
                 const token = await rescueToken()
+                await new Promise(resolve => setTimeout(resolve, 1000))
                 const checktoken = await checkToken(token)
                 if(checktoken === ''){
                      console.log('token is not valid')
