@@ -6,7 +6,7 @@ import 'dotenv/config'
 
 const server = express()
 
-const PORT = 2030
+
 server.use(express.json())
 
 server.use('/riddle', routerRiddle)
@@ -14,4 +14,4 @@ server.use('/player', routerplayer)
 
 await connectToMongoDB()
 
-server.listen(PORT, () => console.log(`server listening on port ${PORT}`))
+server.listen(process.env.PORT, () => console.log(`server listening on port ${process.env.PORT}`))
