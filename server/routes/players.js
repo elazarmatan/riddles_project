@@ -11,14 +11,12 @@ const router = express.Router()
 
 router.get('/token/:token', async (req, res) => {
     try{
-        console
         const decoded = jwt.verify(req.params.token, process.env.SECRETE_KEY);
         res.json(decoded)
     }
     catch(err){
          res.status(400).json({ msg: `server internal error: ${err}` })
     }
-
 })
 
 router.post('/login', async (req, res) => {

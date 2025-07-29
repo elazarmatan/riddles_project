@@ -48,14 +48,11 @@ export async function login() {
                 const token = await rescueToken()
                 await new Promise(resolve => setTimeout(resolve, 1000))
                 const checktoken = await checkToken(token)
-                if(checktoken === ''){
+                if(checktoken === 'error'){
                      console.log('token is not valid')
                     break
                 }
-                if (checktoken.status === 400) {
-                    console.log('token is not valid')
-                    break;
-                }
+                console.log(checktoken)
                 return checktoken
             default:
                 console.log('is not option')
