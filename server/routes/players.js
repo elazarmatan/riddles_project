@@ -11,8 +11,11 @@ import jwt from "jsonwebtoken";
 const router = express.Router();
 
 router.get("/token", async (req, res) => {
+   
   try {
+    console.log(req.headers)
     const token = req.headers['authorization'].split(" ")[1];
+
     const decoded = jwt.verify(token, process.env.SECRETE_KEY);
     res.json(decoded);
   } catch (err) {
@@ -36,7 +39,7 @@ router.post("/login", async (req, res) => {
     const token = jwt.sign(
       { role: user[0].role, name: req.body.name },
       process.env.SECRETE_KEY,
-      { expiresIn: "7m" }
+      { expiresIn: "7h" }
     );
     res.json({ token: token, role: user[0].role, name: req.body.name });
   } catch (err) {
