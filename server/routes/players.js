@@ -12,7 +12,8 @@ const router = express.Router();
 
 router.get("/token", async (req, res) => {
   try {
-    const decoded = jwt.verify(req.headers['authorization'], process.env.SECRETE_KEY);
+    const token = req.headers['authorization'].split(" ")[1];
+    const decoded = jwt.verify(token, process.env.SECRETE_KEY);
     res.json(decoded);
   } catch (err) {
     res.status(400).json({ msg: `server internal error: ${err}` });
