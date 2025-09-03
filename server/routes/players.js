@@ -10,9 +10,9 @@ import jwt from "jsonwebtoken";
 
 const router = express.Router();
 
-router.get("/token/:token", async (req, res) => {
+router.get("/token", async (req, res) => {
   try {
-    const decoded = jwt.verify(req.params.token, process.env.SECRETE_KEY);
+    const decoded = jwt.verify(req.headers['authorization'], process.env.SECRETE_KEY);
     res.json(decoded);
   } catch (err) {
     res.status(400).json({ msg: `server internal error: ${err}` });
